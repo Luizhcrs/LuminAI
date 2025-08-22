@@ -28,6 +28,8 @@ id floating_button
 id tvPermissionStatus
 layout activity_main
 layout floating_button_layout
+mipmap ic_launcher
+mipmap ic_launcher_round
 string app_name
 string check_permission
 string floating_button_description
