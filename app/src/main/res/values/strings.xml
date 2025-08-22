@@ -1,0 +1,12 @@
+<resources>
+    <string name="app_name">Botão Flutuante</string>
+    <string name="floating_button_description">Botão flutuante visível em todas as aplicações</string>
+    <string name="start_service">Iniciar Botão Flutuante</string>
+    <string name="stop_service">Parar Botão Flutuante</string>
+    <string name="check_permission">Verificar Permissão</string>
+    <string name="permission_granted">Permissão concedida</string>
+    <string name="permission_denied">Permissão negada</string>
+    <string name="service_started">Serviço iniciado! O botão flutuante deve aparecer.</string>
+    <string name="service_stopped">Serviço parado! O botão flutuante foi removido.</string>
+    <string name="permission_important">Importante: Para funcionar, você precisa conceder permissão de sobreposição nas configurações do sistema.</string>
+</resources>

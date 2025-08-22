@@ -1,0 +1,10 @@
+[
+    {
+        "merged": "com.example.floatingbutton.app-mergeDebugResources-35:/layout/activity_main.xml",
+        "source": "com.example.floatingbutton.app-main-38:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-mergeDebugResources-35:/layout/floating_button_layout.xml",
+        "source": "com.example.floatingbutton.app-main-38:/layout/floating_button_layout.xml"
+    }
+]

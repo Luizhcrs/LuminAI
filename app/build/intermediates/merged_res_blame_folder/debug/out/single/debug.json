@@ -1,0 +1,34 @@
+[
+    {
+        "merged": "com.example.floatingbutton.app-merged_res-36:/layout_floating_button_layout.xml.flat",
+        "source": "com.example.floatingbutton.app-main-38:/layout/floating_button_layout.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-merged_res-36:/drawable_ic_floating_button.xml.flat",
+        "source": "com.example.floatingbutton.app-main-38:/drawable/ic_floating_button.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-merged_res-36:/drawable_floating_button_background.xml.flat",
+        "source": "com.example.floatingbutton.app-main-38:/drawable/floating_button_background.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-merged_res-36:/layout_activity_main.xml.flat",
+        "source": "com.example.floatingbutton.app-main-38:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-merged_res-36:/drawable_permission_status_background.xml.flat",
+        "source": "com.example.floatingbutton.app-main-38:/drawable/permission_status_background.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-merged_res-36:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.floatingbutton.app-main-38:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-merged_res-36:/xml_backup_rules.xml.flat",
+        "source": "com.example.floatingbutton.app-main-38:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-merged_res-36:/drawable_warning_background.xml.flat",
+        "source": "com.example.floatingbutton.app-main-38:/drawable/warning_background.xml"
+    }
+]

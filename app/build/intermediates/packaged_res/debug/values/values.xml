@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="background">#FFFFFFFF</color>
+    <color name="black">#FF000000</color>
+    <color name="error_text">#FFDC143C</color>
+    <color name="floating_button_color">#FF6200EE</color>
+    <color name="floating_button_ripple">#FF3700B3</color>
+    <color name="on_background">#FF000000</color>
+    <color name="on_primary">#FFFFFFFF</color>
+    <color name="on_secondary">#FF000000</color>
+    <color name="on_surface">#FF000000</color>
+    <color name="primary">#FF6200EE</color>
+    <color name="primary_variant">#FF3700B3</color>
+    <color name="secondary">#FF03DAC5</color>
+    <color name="secondary_variant">#FF018786</color>
+    <color name="success_text">#FF006400</color>
+    <color name="surface">#FFFFFFFF</color>
+    <color name="warning_text">#FF8B0000</color>
+    <color name="white">#FFFFFFFF</color>
+    <string name="app_name">Botão Flutuante</string>
+    <string name="check_permission">Verificar Permissão</string>
+    <string name="floating_button_description">Botão flutuante visível em todas as aplicações</string>
+    <string name="permission_denied">Permissão negada</string>
+    <string name="permission_granted">Permissão concedida</string>
+    <string name="permission_important">Importante: Para funcionar, você precisa conceder permissão de sobreposição nas configurações do sistema.</string>
+    <string name="service_started">Serviço iniciado! O botão flutuante deve aparecer.</string>
+    <string name="service_stopped">Serviço parado! O botão flutuante foi removido.</string>
+    <string name="start_service">Iniciar Botão Flutuante</string>
+    <string name="stop_service">Parar Botão Flutuante</string>
+    <style name="Theme.FloatingButton" parent="Theme.Material3.DayNight.NoActionBar">
+        
+        <item name="colorPrimary">@color/primary</item>
+        <item name="colorPrimaryVariant">@color/primary_variant</item>
+        <item name="colorOnPrimary">@color/on_primary</item>
+        
+        <item name="colorSecondary">@color/secondary</item>
+        <item name="colorSecondaryVariant">@color/secondary_variant</item>
+        <item name="colorOnSecondary">@color/on_secondary</item>
+        
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        
+        <item name="android:windowBackground">@color/background</item>
+    </style>
+</resources>
