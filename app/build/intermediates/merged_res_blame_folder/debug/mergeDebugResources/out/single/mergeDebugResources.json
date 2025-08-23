@@ -1,0 +1,82 @@
+[
+    {
+        "merged": "com.example.floatingbutton.app-debug-38:/mipmap-xhdpi_ic_launcher.xml.flat",
+        "source": "com.example.floatingbutton.app-main-40:/mipmap-xhdpi/ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-debug-38:/drawable_warning_background.xml.flat",
+        "source": "com.example.floatingbutton.app-main-40:/drawable/warning_background.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-debug-38:/mipmap-xxxhdpi_ic_launcher.xml.flat",
+        "source": "com.example.floatingbutton.app-main-40:/mipmap-xxxhdpi/ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-debug-38:/mipmap-mdpi_ic_launcher_round.xml.flat",
+        "source": "com.example.floatingbutton.app-main-40:/mipmap-mdpi/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-debug-38:/xml_data_extraction_rules.xml.flat",
+        "source": "com.example.floatingbutton.app-main-40:/xml/data_extraction_rules.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-debug-38:/mipmap-anydpi-v26_ic_launcher.xml.flat",
+        "source": "com.example.floatingbutton.app-main-40:/mipmap-anydpi-v26/ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-debug-38:/mipmap-xhdpi_ic_launcher_round.xml.flat",
+        "source": "com.example.floatingbutton.app-main-40:/mipmap-xhdpi/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-debug-38:/mipmap-mdpi_ic_launcher.xml.flat",
+        "source": "com.example.floatingbutton.app-main-40:/mipmap-mdpi/ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-debug-38:/layout_activity_main.xml.flat",
+        "source": "com.example.floatingbutton.app-main-40:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-debug-38:/mipmap-hdpi_ic_launcher.xml.flat",
+        "source": "com.example.floatingbutton.app-main-40:/mipmap-hdpi/ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-debug-38:/drawable_permission_status_background.xml.flat",
+        "source": "com.example.floatingbutton.app-main-40:/drawable/permission_status_background.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-debug-38:/xml_backup_rules.xml.flat",
+        "source": "com.example.floatingbutton.app-main-40:/xml/backup_rules.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-debug-38:/mipmap-xxxhdpi_ic_launcher_round.xml.flat",
+        "source": "com.example.floatingbutton.app-main-40:/mipmap-xxxhdpi/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-debug-38:/mipmap-xxhdpi_ic_launcher.xml.flat",
+        "source": "com.example.floatingbutton.app-main-40:/mipmap-xxhdpi/ic_launcher.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-debug-38:/drawable_floating_button_background.xml.flat",
+        "source": "com.example.floatingbutton.app-main-40:/drawable/floating_button_background.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-debug-38:/layout_floating_button_layout.xml.flat",
+        "source": "com.example.floatingbutton.app-main-40:/layout/floating_button_layout.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-debug-38:/drawable_ic_floating_button.xml.flat",
+        "source": "com.example.floatingbutton.app-main-40:/drawable/ic_floating_button.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-debug-38:/mipmap-hdpi_ic_launcher_round.xml.flat",
+        "source": "com.example.floatingbutton.app-main-40:/mipmap-hdpi/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-debug-38:/mipmap-anydpi-v26_ic_launcher_round.xml.flat",
+        "source": "com.example.floatingbutton.app-main-40:/mipmap-anydpi-v26/ic_launcher_round.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-debug-38:/mipmap-xxhdpi_ic_launcher_round.xml.flat",
+        "source": "com.example.floatingbutton.app-main-40:/mipmap-xxhdpi/ic_launcher_round.xml"
+    }
+]

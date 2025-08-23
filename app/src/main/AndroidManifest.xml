@@ -10,6 +10,13 @@
     
     <!-- Permissão para notificações -->
     <uses-permission android:name="android.permission.POST_NOTIFICATIONS" />
+    
+    <!-- Permissão para captura de tela -->
+    <uses-permission android:name="android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION" />
+    
+    <!-- Permissão para armazenamento -->
+    <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:allowBackup="true"
@@ -37,7 +44,14 @@
             android:name=".FloatingButtonService"
             android:enabled="true"
             android:exported="false"
-            android:foregroundServiceType="dataSync" />
+            android:foregroundServiceType="mediaProjection" />
+            
+        <!-- Activity para captura de tela -->
+        <activity
+            android:name=".ScreenCaptureActivity"
+            android:exported="false"
+            android:theme="@android:style/Theme.Translucent.NoTitleBar"
+            android:excludeFromRecents="true" />
             
     </application>
 

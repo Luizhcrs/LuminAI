@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.floatingbutton.app-mergeDebugResources-34:/values-v16/values-v16.xml",
+            "outputFile": "com.example.floatingbutton.app-mergeDebugResources-36:/values-v16/values-v16.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\GB4\\.gradle\\caches\\transforms-3\\2303021cb7f3f78c4bc1b8231e5ae854\\transformed\\appcompat-1.6.1\\res\\values-v16\\values-v16.xml",
+                    "source": "C:\\Users\\GB4\\.gradle\\caches\\transforms-3\\a41e6a68a8051e59a1bea027c058f81a\\transformed\\appcompat-1.6.1\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
@@ -23,7 +23,7 @@
                     }
                 },
                 {
-                    "source": "C:\\Users\\GB4\\.gradle\\caches\\transforms-3\\97e765d7646eda9d89caa6262cf470cb\\transformed\\core-1.12.0\\res\\values-v16\\values-v16.xml",
+                    "source": "C:\\Users\\GB4\\.gradle\\caches\\transforms-3\\217cd4443c329c3de6d6b6409afab4f6\\transformed\\core-1.12.0\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",
