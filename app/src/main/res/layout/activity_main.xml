@@ -82,55 +82,6 @@
 
         </LinearLayout>
 
-        <!-- Status de permissão minimalista -->
-        <TextView
-            android:id="@+id/tvPermissionStatus"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Verificando permissões..."
-            android:textSize="16sp"
-            android:textColor="#80FFFFFF"
-            android:layout_marginBottom="24dp" />
-
-        <!-- Botões principais -->
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <Button
-                android:id="@+id/btnStartService"
-                android:layout_width="280dp"
-                android:layout_height="56dp"
-                android:text="Ativar Lumin"
-                android:textSize="18sp"
-                android:textStyle="bold"
-                android:background="@drawable/lumin_primary_button"
-                android:textColor="#FFFFFF"
-                android:layout_marginBottom="16dp" />
-
-            <Button
-                android:id="@+id/btnStopService"
-                android:layout_width="280dp"
-                android:layout_height="56dp"
-                android:text="Desativar Lumin"
-                android:textSize="18sp"
-                android:background="@drawable/lumin_secondary_button"
-                android:textColor="#FF069E6E"
-                android:layout_marginBottom="16dp" />
-
-            <Button
-                android:id="@+id/btnCheckPermission"
-                android:layout_width="280dp"
-                android:layout_height="48dp"
-                android:text="Verificar Permissões"
-                android:textSize="16sp"
-                android:background="@drawable/lumin_outline_button"
-                android:textColor="#80FFFFFF" />
-
-        </LinearLayout>
-
     </LinearLayout>
 
     <!-- ImageView para preview de imagens compartilhadas (oculto por padrão) -->

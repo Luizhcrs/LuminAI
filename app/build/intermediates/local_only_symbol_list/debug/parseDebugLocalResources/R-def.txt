@@ -31,15 +31,9 @@ drawable lumin_secondary_button
 drawable modern_button_background
 drawable permission_status_background
 drawable warning_background
-id btnCheckPermission
-id btnStartService
-id btnStopService
-id floating_button
 id imageView
 id tvImageStatus
-id tvPermissionStatus
 layout activity_main
-layout floating_button_layout
 mipmap ic_launcher
 mipmap ic_launcher_round
 string app_name

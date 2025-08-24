@@ -4,7 +4,6 @@ package com.example.floatingbutton.databinding;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -22,33 +21,16 @@ public final class ActivityMainBinding implements ViewBinding {
   private final FrameLayout rootView;
 
   @NonNull
-  public final Button btnCheckPermission;
-
-  @NonNull
-  public final Button btnStartService;
-
-  @NonNull
-  public final Button btnStopService;
-
-  @NonNull
   public final ImageView imageView;
 
   @NonNull
   public final TextView tvImageStatus;
 
-  @NonNull
-  public final TextView tvPermissionStatus;
-
-  private ActivityMainBinding(@NonNull FrameLayout rootView, @NonNull Button btnCheckPermission,
-      @NonNull Button btnStartService, @NonNull Button btnStopService, @NonNull ImageView imageView,
-      @NonNull TextView tvImageStatus, @NonNull TextView tvPermissionStatus) {
+  private ActivityMainBinding(@NonNull FrameLayout rootView, @NonNull ImageView imageView,
+      @NonNull TextView tvImageStatus) {
     this.rootView = rootView;
-    this.btnCheckPermission = btnCheckPermission;
-    this.btnStartService = btnStartService;
-    this.btnStopService = btnStopService;
     this.imageView = imageView;
     this.tvImageStatus = tvImageStatus;
-    this.tvPermissionStatus = tvPermissionStatus;
   }
 
   @Override
@@ -78,24 +60,6 @@ public final class ActivityMainBinding implements ViewBinding {
     // This is done to optimize the compiled bytecode for size and performance.
     int id;
     missingId: {
-      id = R.id.btnCheckPermission;
-      Button btnCheckPermission = ViewBindings.findChildViewById(rootView, id);
-      if (btnCheckPermission == null) {
-        break missingId;
-      }
-
-      id = R.id.btnStartService;
-      Button btnStartService = ViewBindings.findChildViewById(rootView, id);
-      if (btnStartService == null) {
-        break missingId;
-      }
-
-      id = R.id.btnStopService;
-      Button btnStopService = ViewBindings.findChildViewById(rootView, id);
-      if (btnStopService == null) {
-        break missingId;
-      }
-
       id = R.id.imageView;
       ImageView imageView = ViewBindings.findChildViewById(rootView, id);
       if (imageView == null) {
@@ -108,14 +72,7 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
-      id = R.id.tvPermissionStatus;
-      TextView tvPermissionStatus = ViewBindings.findChildViewById(rootView, id);
-      if (tvPermissionStatus == null) {
-        break missingId;
-      }
-
-      return new ActivityMainBinding((FrameLayout) rootView, btnCheckPermission, btnStartService,
-          btnStopService, imageView, tvImageStatus, tvPermissionStatus);
+      return new ActivityMainBinding((FrameLayout) rootView, imageView, tvImageStatus);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));
