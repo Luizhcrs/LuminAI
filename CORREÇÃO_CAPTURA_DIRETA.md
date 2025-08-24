@@ -18,7 +18,7 @@ private fun captureCurrentScreen() {
         "ScreenCapture",
         screenWidth, screenHeight, screenDensity,
         DisplayManager.VIRTUAL_DISPLAY_FLAG_AUTO_MIRROR, // Espelha a tela atual
-        imageReader?.surface, null, null
+        imageReader?.surface, null, null 
     )
 }
 ```
