@@ -17,14 +17,14 @@ import androidx.core.content.ContextCompat
 import com.example.floatingbutton.R
 
 /**
- * 🎯 Floating Action Menu - Menu flutuante elegante com animações
+ * Floating Action Menu - Menu flutuante elegante com animações
  * 
  * Botões disponíveis:
- * - 📝 OCR (Extrair texto)
- * - 🖼️ Salvar área selecionada
- * - ✂️ Recortar
- * - 🔍 Pesquisar
- * - ❌ Fechar
+ * - OCR (Extrair texto)
+ * - Salvar área selecionada
+ * - Recortar
+ * - Pesquisar
+ * - Fechar
  */
 class FloatingActionMenu @JvmOverloads constructor(
     context: Context,
@@ -33,20 +33,20 @@ class FloatingActionMenu @JvmOverloads constructor(
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
     companion object {
-        private const val ANIMATION_DURATION = 80L // ⚡ Ultra rápido
-        private const val STAGGER_DELAY = 8L // ⚡ Delay mínimo entre botões
+        private const val ANIMATION_DURATION = 80L // Ultra rápido
+        private const val STAGGER_DELAY = 8L // Delay mínimo entre botões
     }
 
-    // 🎯 Ações disponíveis
+    // Ações disponíveis
     enum class Action {
         OCR, SAVE_AREA, SEARCH, AI_SCAN, CLOSE
-        // 🗑️ CROP removido
+        // CROP removido
     }
 
-    // 🎯 Callback para ações
+    // Callback para ações
     private var onActionClickListener: ((Action) -> Unit)? = null
     
-    // 🎯 Botões
+    // Botões
     private val actionButtons = mutableListOf<View>()
     private var isExpanded = false
 
@@ -57,49 +57,49 @@ class FloatingActionMenu @JvmOverloads constructor(
     }
 
     /**
-     * 🎨 Cria os botões de ação com design moderno
+     * Cria os botões de ação com design moderno
      */
     private fun createActionButtons() {
-        // 🤖 IA - Primeiro lugar
+        // IA - Primeiro lugar
         addActionButton(
             action = Action.AI_SCAN,
-            icon = "AI", // Nome AI
+            iconRes = R.drawable.ic_ai_brain,
             title = "IA",
             subtitle = "",
             color = "#069E6E" // Cor única
         )
 
-        // 📝 OCR - Texto
+        // OCR - Texto
         addActionButton(
             action = Action.OCR,
-            icon = "T", // Ícone de texto
+            iconRes = R.drawable.ic_text_recognition,
             title = "OCR",
             subtitle = "",
             color = "#069E6E" // Cor única
         )
 
-        // 🔍 Buscar
+        // Buscar
         addActionButton(
             action = Action.SEARCH,
-            icon = "◉", // Ícone de busca simples
+            iconRes = R.drawable.ic_search,
             title = "Buscar",
             subtitle = "",
             color = "#069E6E" // Cor única
         )
 
-        // 💾 Salvar
+        // Salvar
         addActionButton(
             action = Action.SAVE_AREA,
-            icon = "▼", // Ícone de salvar simples
+            iconRes = R.drawable.ic_save,
             title = "Salvar",
             subtitle = "",
             color = "#069E6E" // Cor única
         )
 
-        // ❌ Fechar
+        // Fechar
         addActionButton(
             action = Action.CLOSE,
-            icon = "×", // Ícone X simples
+            iconRes = R.drawable.ic_close,
             title = "Fechar",
             subtitle = "",
             color = "#069E6E" // Cor única
@@ -107,11 +107,11 @@ class FloatingActionMenu @JvmOverloads constructor(
     }
 
     /**
-     * 🎨 Adiciona um botão de ação elegante
+     * Adiciona um botão de ação elegante
      */
     private fun addActionButton(
         action: Action,
-        icon: String,
+        iconRes: Int,
         title: String,
         subtitle: String,
         color: String
@@ -119,11 +119,11 @@ class FloatingActionMenu @JvmOverloads constructor(
         val buttonContainer = LinearLayout(context).apply {
             orientation = HORIZONTAL
             gravity = Gravity.CENTER_VERTICAL
-            setPadding(24, 16, 24, 16) // 🎨 Padding elegante
+            setPadding(24, 16, 24, 16) // Padding elegante
             
             // Background com sombra e cantos arredondados
             background = createButtonBackground(color)
-            elevation = 8f // 🌟 Sombra elegante
+            elevation = 8f // Sombra elegante
             
             // Efeito de clique
             isClickable = true
@@ -135,39 +135,36 @@ class FloatingActionMenu @JvmOverloads constructor(
             }
         }
 
-        // 🎨 Ícone
-        val iconView = TextView(context).apply {
-            text = icon
-            textSize = 18f // 🔥 Maior para melhor legibilidade
-            gravity = Gravity.CENTER
-            layoutParams = LinearLayout.LayoutParams(56, 56).apply { // 🎨 Mais espaçoso
-                marginEnd = 16 // 🎨 Margem elegante
+        // Ícone Material Design
+        val iconView = ImageView(context).apply {
+            setImageResource(iconRes)
+            layoutParams = LinearLayout.LayoutParams(56, 56).apply { // Mais espaçoso
+                marginEnd = 16 // Margem elegante
             }
-            setTextColor(Color.WHITE)
-            typeface = android.graphics.Typeface.create(android.graphics.Typeface.DEFAULT, android.graphics.Typeface.BOLD)
+            setColorFilter(Color.WHITE)
         }
 
-        // 🎨 Container de texto
+        // Container de texto
         val textContainer = LinearLayout(context).apply {
             orientation = VERTICAL
             layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)
         }
 
-        // 🎨 Título (minimalista)
+        // Título (minimalista)
         val titleView = TextView(context).apply {
             text = title
-            textSize = 14f // 🔥 Menor e minimalista
+            textSize = 14f // Menor e minimalista
             setTextColor(Color.WHITE)
             typeface = android.graphics.Typeface.DEFAULT_BOLD
         }
 
         textContainer.addView(titleView)
         
-        // 🎯 Só adiciona subtítulo se não estiver vazio
+        // Só adiciona subtítulo se não estiver vazio
         if (subtitle.isNotEmpty()) {
             val subtitleView = TextView(context).apply {
                 text = subtitle
-                textSize = 11f // 🔥 Menor
+                textSize = 11f // Menor
                 setTextColor(Color.parseColor("#B3FFFFFF"))
             }
             textContainer.addView(subtitleView)
@@ -196,23 +193,23 @@ class FloatingActionMenu @JvmOverloads constructor(
     }
 
     /**
-     * 🎨 Cria background moderno com gradiente e sombra
+     * Cria background moderno com gradiente e sombra
      */
     private fun createButtonBackground(color: String): GradientDrawable {
         return GradientDrawable().apply {
             shape = GradientDrawable.RECTANGLE
             cornerRadius = 16f
             
-            // 🎯 Cor sólida minimalista (sem gradiente)
+            // Cor sólida minimalista (sem gradiente)
             setColor(Color.parseColor(color))
             
-            // ✨ Borda elegante
+            // Borda elegante
             setStroke(2, Color.parseColor("#60FFFFFF"))
         }
     }
     
     /**
-     * 🎨 Ajusta brilho da cor
+     * Ajusta brilho da cor
      */
     private fun adjustColorBrightness(color: Int, factor: Float): Int {
         val hsv = FloatArray(3)
@@ -222,7 +219,7 @@ class FloatingActionMenu @JvmOverloads constructor(
     }
 
     /**
-     * ✨ Animação de clique no botão
+     * Animação de clique no botão
      */
     private fun animateClick(view: View) {
         val scaleDown = AnimatorSet().apply {
@@ -248,7 +245,7 @@ class FloatingActionMenu @JvmOverloads constructor(
     }
 
     /**
-     * ✨ Mostra o menu com animação elegante
+     * Mostra o menu com animação elegante
      */
     fun showMenu() {
         if (isExpanded) return
@@ -276,7 +273,7 @@ class FloatingActionMenu @JvmOverloads constructor(
     }
 
     /**
-     * ✨ Esconde o menu com animação elegante
+     * Esconde o menu com animação elegante
      */
     fun hideMenu() {
         if (!isExpanded) return
@@ -310,14 +307,14 @@ class FloatingActionMenu @JvmOverloads constructor(
     }
 
     /**
-     * 📱 Setter para callback de ações
+     * Setter para callback de ações
      */
     fun setOnActionClickListener(listener: (Action) -> Unit) {
         onActionClickListener = listener
     }
 
     /**
-     * 🎯 Verifica se o menu está expandido
+     * Verifica se o menu está expandido
      */
     fun isMenuExpanded(): Boolean = isExpanded
 }

@@ -3060,6 +3060,7 @@ int drawable design_snackbar_background 0x7f07009a
 int drawable floating_button_background 0x7f07009b
 int drawable googleg_disabled_color_18 0x7f07009c
 int drawable googleg_standard_color_18 0x7f07009d
+int drawable ic_ai_brain 0x7f070105
 int drawable ic_arrow_back_black_24 0x7f07009e
 int drawable ic_call_answer 0x7f07009f
 int drawable ic_call_answer_low 0x7f0700a0
@@ -3069,6 +3070,7 @@ int drawable ic_call_decline 0x7f0700a3
 int drawable ic_call_decline_low 0x7f0700a4
 int drawable ic_clear_black_24 0x7f0700a5
 int drawable ic_clock_black_24dp 0x7f0700a6
+int drawable ic_close 0x7f070106
 int drawable ic_floating_button 0x7f0700a7
 int drawable ic_keyboard_black_24dp 0x7f0700a8
 int drawable ic_lumin_app_icon 0x7f0700a9
@@ -3079,7 +3081,10 @@ int drawable ic_mtrl_checked_circle 0x7f0700ad
 int drawable ic_mtrl_chip_checked_black 0x7f0700ae
 int drawable ic_mtrl_chip_checked_circle 0x7f0700af
 int drawable ic_mtrl_chip_close_circle 0x7f0700b0
+int drawable ic_save 0x7f070107
+int drawable ic_search 0x7f070108
 int drawable ic_search_black_24 0x7f0700b1
+int drawable ic_text_recognition 0x7f070109
 int drawable lumin_instruction_card 0x7f0700b2
 int drawable lumin_logo_background 0x7f0700b3
 int drawable lumin_outline_button 0x7f0700b4

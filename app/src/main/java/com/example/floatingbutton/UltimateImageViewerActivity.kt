@@ -33,15 +33,15 @@ import java.text.SimpleDateFormat
 import java.util.*
 
 /**
- * 🚀 Ultimate Image Viewer - A experiência definitiva de seleção inteligente
+ * Ultimate Image Viewer - A experiência definitiva de seleção inteligente
  * 
  * Características:
- * - 🔲 Desenho livre que se completa como retângulo
- * - 📝 OCR ativo em tempo real sobre o texto
- * - 🎯 Texto selecionável como em sites
- * - ✨ Animações fluidas e interface moderna
- * - 🤖 IA integrada para detecção inteligente
- * - 📋 Cópia automática para clipboard
+ * - Desenho livre que se completa como retângulo
+ * - OCR ativo em tempo real sobre o texto
+ * - Texto selecionável como em sites
+ * - Animações fluidas e interface moderna
+ * - IA integrada para detecção inteligente
+ * - Cópia automática para clipboard
  */
 class UltimateImageViewerActivity : Activity() {
 
@@ -50,7 +50,7 @@ class UltimateImageViewerActivity : Activity() {
         private const val TAG = "UltimateImageViewer"
     }
 
-    // 🖼️ Views principais
+    // Views principais
     private lateinit var mainContainer: FrameLayout
     private lateinit var imageView: MinimalImageView
     private lateinit var magicalBrushView: MagicalBrushView
@@ -59,17 +59,17 @@ class UltimateImageViewerActivity : Activity() {
     private lateinit var actionMenu: FloatingActionMenu
     private lateinit var aiResultsDialog: AIResultsDialog
 
-    // 🖼️ Dados da imagem
+    // Dados da imagem
     private var imageUri: Uri? = null
     private var originalBitmap: Bitmap? = null
     private var selectedRegion: RectF? = null
 
-    // 🤖 IA Engines
+    // IA Engines
     private lateinit var smartSelectionEngine: SmartSelectionEngine
     private lateinit var aiDetectionService: AIDetectionService
     private var aiAnalysisJob: Job? = null
 
-    // 🎯 Estados
+    // Estados
     private var currentMode = ViewMode.MAGICAL_DRAWING
     
     enum class ViewMode { MAGICAL_DRAWING, SMART_SELECTION, OCR_ACTIVE, MENU_VISIBLE }
@@ -77,29 +77,29 @@ class UltimateImageViewerActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
-        Log.d(TAG, " Iniciando Ultimate Image Viewer...")
+        Log.d(TAG, "Iniciando Ultimate Image Viewer...")
         
-        // ✅ PRIMEIRO: Configurar views
+        // PRIMEIRO: Configurar views
         setupViews()
         setupInteractions()
         initializeAI()
         
-        // ✅ SEGUNDO: Processar imagem compartilhada (se houver)
+        // SEGUNDO: Processar imagem compartilhada (se houver)
         if (intent?.action == Intent.ACTION_SEND && intent.type?.startsWith("image/") == true) {
-            // ✅ RECEBEU IMAGEM VIA SHARE - PROCESSAR DIRETO
+            // RECEBEU IMAGEM VIA SHARE - PROCESSAR DIRETO
             handleSharedImage(intent)
         } else {
-            // ❌ NÃO RECEBEU IMAGEM - FECHAR
+            // NÃO RECEBEU IMAGEM - FECHAR
             Log.w(TAG, "Nenhuma imagem recebida, fechando...")
             finish()
             return
         }
         
-        // ✅ TERCEIRO: Inicia no modo de pincel mágico
+        // TERCEIRO: Inicia no modo de pincel mágico
         enterMagicalDrawingMode()
     }
 
-    // 🎯 ADICIONAR FUNÇÃO PARA PROCESSAR IMAGEM COMPARTILHADA
+    // ADICIONAR FUNÇÃO PARA PROCESSAR IMAGEM COMPARTILHADA
     private fun handleSharedImage(intent: Intent) {
         val imageUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
             intent.getParcelableExtra(Intent.EXTRA_STREAM, Uri::class.java)
@@ -119,10 +119,10 @@ class UltimateImageViewerActivity : Activity() {
     }
 
     /**
-     * 🎨 Configura as views com layout moderno
+     * Configura as views com layout moderno
      */
     private fun setupViews() {
-        // 🌌 Container principal com gradiente elegante
+        // Container principal com gradiente elegante
         mainContainer = FrameLayout(this).apply {
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
@@ -131,25 +131,25 @@ class UltimateImageViewerActivity : Activity() {
             setBackgroundResource(com.example.floatingbutton.R.drawable.app_background_gradient)
         }
 
-        // 🎨 Minimal ImageView com efeitos sutis nos cantos
+        // Minimal ImageView com efeitos sutis nos cantos
         imageView = MinimalImageView(this).apply {
             layoutParams = FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT
             )
             scaleType = ImageView.ScaleType.FIT_CENTER
-            // 🌟 Inicia com estado normal minimalista
+            // Inicia com estado normal minimalista
             showNormal()
-            // 🔥 Força redesenho das bordas
+            // Força redesenho das bordas
             post { 
                 invalidate()
-                Log.d(TAG, "🎨 MinimalImageView forçado a redesenhar bordas")
+                Log.d(TAG, "MinimalImageView forçado a redesenhar bordas")
             }
         }
 
-        // 🚫 SmartDrawingView removido - substituído por ElegantSelectionView
+        // SmartDrawingView removido - substituído por ElegantSelectionView
 
-        // 🖌️ Magical Brush View (pincel com efeitos visuais)
+        // Magical Brush View (pincel com efeitos visuais)
         magicalBrushView = MagicalBrushView(this).apply {
             layoutParams = FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
@@ -157,13 +157,13 @@ class UltimateImageViewerActivity : Activity() {
             )
             visibility = View.GONE
             
-            // 📞 Callback quando desenho é concluído
+            // Callback quando desenho é concluído
             onDrawingCompleted = { points ->
                 handleDrawingCompleted(points)
             }
         }
 
-        // 🎨 Elegant Selection View (retângulo redimensionável)
+        // Elegant Selection View (retângulo redimensionável)
         elegantSelectionView = ElegantSelectionView(this).apply {
             layoutParams = FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
@@ -171,10 +171,10 @@ class UltimateImageViewerActivity : Activity() {
             )
             visibility = View.GONE
             
-            // 📞 Callbacks para redimensionamento
+            // Callbacks para redimensionamento
             onSelectionChanged = { rect ->
                 selectedRegion = rect
-                // 🎯 Converte coordenadas para o ImageView
+                // Converte coordenadas para o ImageView
                 val imageRect = convertToImageCoordinates(rect)
                 imageView.setSelectionHighlight(imageRect)
                 updateActionMenuPosition(rect)
@@ -219,7 +219,7 @@ class UltimateImageViewerActivity : Activity() {
         // Monta a hierarquia (ordem importa para eventos de toque)
         mainContainer.addView(imageView)
         mainContainer.addView(magicalBrushView) // 🖌️ Pincel mágico
-        mainContainer.addView(elegantSelectionView) // 🎨 Seleção elegante redimensionável
+        mainContainer.addView(elegantSelectionView) // Seleção elegante redimensionável
         mainContainer.addView(ocrOverlay)
         mainContainer.addView(actionMenu)
         mainContainer.addView(aiResultsDialog)
@@ -230,10 +230,10 @@ class UltimateImageViewerActivity : Activity() {
     }
 
     /**
-     * 🖼️ Carrega a imagem recebida
+     * Carrega a imagem recebida
      */
     private fun loadImage() {
-        // ✅ Usa a URI já processada em handleSharedImage()
+        // Usa a URI já processada em handleSharedImage()
         if (imageUri == null) {
             Log.e(TAG, "❌ URI da imagem não fornecida")
             showError("Erro: Imagem não encontrada")
@@ -245,19 +245,19 @@ class UltimateImageViewerActivity : Activity() {
                 originalBitmap = BitmapFactory.decodeStream(inputStream)
                 imageView.setImageBitmap(originalBitmap)
                 
-                // 🎨 Ativa efeitos minimalistas com animação suave
+                // Ativa efeitos minimalistas com animação suave
                 imageView.alpha = 0f
                 imageView.scaleX = 0.95f
                 imageView.scaleY = 0.95f
                 imageView.showNormal()
                 
-                // 🔥 Força redesenho da moldura após carregar imagem
+                // Força redesenho da moldura após carregar imagem
                 imageView.post {
                     imageView.forceBorderRedraw()
                     Log.d(TAG, "🖼️ Imagem carregada, forçando moldura")
                 }
                 
-                // ✨ Animação de entrada mais sutil
+                // Animação de entrada mais sutil
                 imageView.animate()
                     .alpha(1f)
                     .scaleX(1f)
@@ -275,17 +275,17 @@ class UltimateImageViewerActivity : Activity() {
     }
 
     /**
-     * 🎯 Configura todas as interações
+     * Configura todas as interações
      */
     private fun setupInteractions() {
         setupOCRInteractions()
         setupMenuInteractions()
     }
 
-    // 🚫 setupDrawingInteractions removida - agora usamos MagicalBrushView + ElegantSelectionView
+    // setupDrawingInteractions removida - agora usamos MagicalBrushView + ElegantSelectionView
 
     /**
-     * 📝 Configura interações de OCR
+     * Configura interações de OCR
      */
     private fun setupOCRInteractions() {
         ocrOverlay.setOnTextSelectedListener { text, mode ->
@@ -296,14 +296,14 @@ class UltimateImageViewerActivity : Activity() {
             }
             
             Log.d(TAG, "📝 Texto selecionado ($modeText): $text")
-            // 🔇 Texto selecionado silenciosamente
+            // Texto selecionado silenciosamente
         }
 
         ocrOverlay.setOnOCRCompleteListener { textBlocks ->
             Log.d(TAG, "🤖 OCR completo: ${textBlocks.size} blocos detectados")
             
             val totalText = textBlocks.sumOf { it.text.length }
-            // 🔇 OCR concluído silenciosamente
+            // OCR concluído silenciosamente
             
             // Mostra instruções de uso
             showOCRInstructions()
@@ -311,7 +311,7 @@ class UltimateImageViewerActivity : Activity() {
     }
 
     /**
-     * 🎯 Configura interações do menu
+     * Configura interações do menu
      */
     private fun setupMenuInteractions() {
         actionMenu.setOnActionClickListener { action ->
@@ -323,7 +323,7 @@ class UltimateImageViewerActivity : Activity() {
                 FloatingActionMenu.Action.SAVE_AREA -> {
                     saveSelectedArea()
                 }
-                // 🗑️ Botão CROP removido
+                // Botão CROP removido
                 FloatingActionMenu.Action.SEARCH -> {
                     searchSelectedContent()
                 }
@@ -331,7 +331,7 @@ class UltimateImageViewerActivity : Activity() {
                     performAIScan()
                 }
                 FloatingActionMenu.Action.CLOSE -> {
-                    // 🔄 Volta ao pincel sem bugs
+                    // Volta ao pincel sem bugs
                     actionMenu.hideMenu()
                     enterMagicalDrawingMode()
                 }
@@ -340,7 +340,7 @@ class UltimateImageViewerActivity : Activity() {
     }
 
     /**
-     * 🤖 Inicializa IA
+     * Inicializa IA
      */
     private fun initializeAI() {
         try {
@@ -359,14 +359,14 @@ class UltimateImageViewerActivity : Activity() {
     }
 
     /**
-     * 💡 Mostra dica de boas-vindas
+     * Mostra dica de boas-vindas
      */
     private fun showWelcomeHint() {
-        // 🔇 Boas-vindas silenciosas
+        // Boas-vindas silenciosas
     }
 
     /**
-     * 📝 Ativa modo OCR
+     * Ativa modo OCR
      */
     private fun activateOCR() {
         val region = selectedRegion ?: return
@@ -382,12 +382,12 @@ class UltimateImageViewerActivity : Activity() {
         currentMode = ViewMode.OCR_ACTIVE
         
         // Executa OCR
-        // 🔇 OCR executando silenciosamente
+        // OCR executando silenciosamente
         ocrOverlay.performOCR(bitmap, region)
     }
 
     /**
-     * 🖌️ Processa desenho concluído do pincel mágico
+     * Processa desenho concluído do pincel mágico
      */
     private fun handleDrawingCompleted(points: List<PointF>) {
         Log.d(TAG, "🖌️ handleDrawingCompleted chamado com ${points.size} pontos")
@@ -397,10 +397,10 @@ class UltimateImageViewerActivity : Activity() {
             return
         }
         
-        // 🔄 Converte pontos livres em retângulo elegante
+        // Converte pontos livres em retângulo elegante
         val bounds = calculateBounds(points)
         
-        // 🚫 VALIDA SE A SELEÇÃO É VÁLIDA
+        // VALIDA SE A SELEÇÃO É VÁLIDA
         if (!isValidSelection(bounds)) {
             Log.w(TAG, "⚠️ Seleção inválida, voltando ao modo de desenho")
             magicalBrushView.clearDrawing()
@@ -411,29 +411,29 @@ class UltimateImageViewerActivity : Activity() {
         
         Log.d(TAG, "📐 Bounds calculados: $bounds")
         
-        // 🎨 Esconde pincel e mostra seleção elegante
+        // Esconde pincel e mostra seleção elegante
         magicalBrushView.visibility = View.GONE
         elegantSelectionView.setSelection(bounds)
         imageView.setSelectionHighlight(bounds) // 🌑 Ativa destaque
         currentMode = ViewMode.SMART_SELECTION
         
-        // 🎯 Mostra menu de ações
+        // Mostra menu de ações
         actionMenu.showMenu()
         
         // Seleção ativada
     }
     
     /**
-     * ✅ Valida se a seleção é adequada para uso
+     * Valida se a seleção é adequada para uso
      */
     private fun isValidSelection(bounds: RectF): Boolean {
-        // 🚫 Verifica tamanho mínimo
+        // Verifica tamanho mínimo
         if (bounds.width() < 80f || bounds.height() < 80f) {
             Log.w(TAG, "⚠️ Seleção muito pequena: ${bounds.width()}x${bounds.height()}")
             return false
         }
         
-        // 🚫 Verifica se está dentro dos limites da tela
+        // Verifica se está dentro dos limites da tela
         val screenWidth = mainContainer.width.toFloat()
         val screenHeight = mainContainer.height.toFloat()
         
@@ -447,7 +447,7 @@ class UltimateImageViewerActivity : Activity() {
     }
     
     /**
-     * 📐 Calcula bounds dos pontos com limites seguros
+     * Calcula bounds dos pontos com limites seguros
      */
     private fun calculateBounds(points: List<PointF>): RectF {
         if (points.isEmpty()) return RectF()
@@ -464,10 +464,10 @@ class UltimateImageViewerActivity : Activity() {
             maxY = maxOf(maxY, point.y)
         }
         
-        // 📏 Adiciona margem
+        // Adiciona margem
         val margin = 20f
         
-        // 🎯 Calcula bounds iniciais
+        // Calcula bounds iniciais
         val bounds = RectF(
             maxOf(0f, minX - margin),
             maxOf(0f, minY - margin),
@@ -475,89 +475,89 @@ class UltimateImageViewerActivity : Activity() {
             maxY + margin
         )
         
-        // 🚫 APLICA LIMITES DE SEGURANÇA
+        // APLICA LIMITES DE SEGURANÇA
         return applySafeBounds(bounds)
     }
     
     /**
-     * 🚫 Aplica limites seguros para a seleção
+     * Aplica limites seguros para a seleção
      */
     private fun applySafeBounds(bounds: RectF): RectF {
-        // 📱 Dimensões da tela (usando mainContainer)
+        // Dimensões da tela (usando mainContainer)
         val screenWidth = mainContainer.width.toFloat()
         val screenHeight = mainContainer.height.toFloat()
         
-        // 🎯 Margens de segurança para botões e elementos da UI
+        // Margens de segurança para botões e elementos da UI
         val safeMargin = 80f // Margem para botões e elementos
         val minSelectionSize = 100f // Tamanho mínimo da seleção
         
-        // 🚫 Limita largura e altura
+        // Limita largura e altura
         var safeWidth = bounds.width().coerceAtLeast(minSelectionSize)
         var safeHeight = bounds.height().coerceAtLeast(minSelectionSize)
         
-        // 🚫 Garante que não ultrapasse a largura da tela
+        // Garante que não ultrapasse a largura da tela
         if (bounds.left + safeWidth > screenWidth - safeMargin) {
             safeWidth = screenWidth - bounds.left - safeMargin
         }
         
-        // 🚫 Garante que não ultrapasse a altura da tela
+        // Garante que não ultrapasse a altura da tela
         if (bounds.top + safeHeight > screenHeight - safeMargin) {
             safeHeight = screenHeight - bounds.top - safeMargin
         }
         
-        // 🚫 Garante que não ultrapasse a esquerda
+        // Garante que não ultrapasse a esquerda
         var safeLeft = bounds.left.coerceAtLeast(safeMargin)
         if (safeLeft + safeWidth > screenWidth - safeMargin) {
             safeLeft = screenWidth - safeWidth - safeMargin
         }
         
-        // 🚫 Garante que não ultrapasse o topo
+        // Garante que não ultrapasse o topo
         var safeTop = bounds.top.coerceAtLeast(safeMargin)
         if (safeTop + safeHeight > screenHeight - safeMargin) {
             safeTop = screenHeight - safeHeight - safeMargin
         }
         
-        // 🎯 Retorna bounds seguros
+        // Retorna bounds seguros
         return RectF(safeLeft, safeTop, safeLeft + safeWidth, safeTop + safeHeight)
     }
 
     /**
-     * 🖌️ Entra no modo de desenho mágico
+     * Entra no modo de desenho mágico
      */
     private fun enterMagicalDrawingMode() {
         currentMode = ViewMode.MAGICAL_DRAWING
         
-        // 🎨 Mostra apenas o pincel mágico
+        // Mostra apenas o pincel mágico
         magicalBrushView.visibility = View.VISIBLE
         // smartDrawingView removido
         elegantSelectionView.visibility = View.GONE
         ocrOverlay.visibility = View.GONE
         actionMenu.hideMenu()
         
-        // 🧹 Limpa TUDO para começar fresh
+        // Limpa TUDO para começar fresh
         selectedRegion = null
         magicalBrushView.clearDrawing()
         // smartDrawingView removido
         elegantSelectionView.clearSelection()
         imageView.clearSelectionHighlight() // 🌑 Remove destaque
         
-        // 🎯 Configura clique fora para reset
+        // Configura clique fora para reset
         setupOutsideClickReset()
         
         Log.d(TAG, "🖌️ Modo pincel mágico ativado - sempre funcional")
     }
     
     /**
-     * 🎯 Configura reset ao clicar fora da área
+     * Configura reset ao clicar fora da área
      */
     private fun setupOutsideClickReset() {
         mainContainer.setOnClickListener { 
-            // 🎨 Sempre permite nova seleção
+            // Sempre permite nova seleção
             when (currentMode) {
                 ViewMode.SMART_SELECTION -> {
                     // Se tem seleção ativa, permite nova
                     enterMagicalDrawingMode()
-                    // 🔇 Removido toast desnecessário
+                    // Removido toast desnecessário
                 }
                 ViewMode.MENU_VISIBLE -> {
                     // Esconde menu e volta ao pincel
@@ -576,7 +576,7 @@ class UltimateImageViewerActivity : Activity() {
     }
 
     /**
-     * 🧠 Executa análise inteligente
+     * Executa análise inteligente
      */
     private fun performIntelligentAnalysis(region: RectF) {
         val bitmap = originalBitmap ?: return
@@ -584,7 +584,7 @@ class UltimateImageViewerActivity : Activity() {
         aiAnalysisJob?.cancel()
         aiAnalysisJob = CoroutineScope(Dispatchers.Main).launch {
             try {
-                // 🔇 Análise silenciosa - sem toast
+                // Análise silenciosa - sem toast
                 
                 withContext(Dispatchers.Default) {
                     // Simula análise (substitua pela IA real)
@@ -593,7 +593,7 @@ class UltimateImageViewerActivity : Activity() {
                     withContext(Dispatchers.Main) {
                         // Simula resultados
                         val hasText = region.width() > 200 && region.height() > 50
-                        // 🔇 Análise silenciosa - resultados mostrados apenas no menu
+                        // Análise silenciosa - resultados mostrados apenas no menu
                     }
                 }
                 
@@ -604,42 +604,42 @@ class UltimateImageViewerActivity : Activity() {
     }
 
     /**
-     * 🖼️ Salva área selecionada com qualidade otimizada
+     * Salva área selecionada com qualidade otimizada
      */
     private fun saveSelectedArea() {
         val region = selectedRegion ?: run {
-            // 🔇 Área não selecionada - silencioso
+            // Área não selecionada - silencioso
             return
         }
         val bitmap = originalBitmap ?: run {
-            // 🔇 Imagem não carregada - silencioso
+            // Imagem não carregada - silencioso
             return
         }
         
         CoroutineScope(Dispatchers.IO).launch {
             try {
-                // 🎯 Recorta com margem para melhor qualidade
+                // Recorta com margem para melhor qualidade
                 val croppedBitmap = cropBitmapToRegion(bitmap, region)
                 
-                // 🎨 Otimiza qualidade da imagem
+                // Otimiza qualidade da imagem
                 val optimizedBitmap = optimizeBitmapQuality(croppedBitmap)
                 
-                // 💾 Salva com nome descritivo
+                // Salva com nome descritivo
                 val savedFile = saveBitmapToFile(optimizedBitmap, "lumin_selection")
                 
-                // 🧹 Libera memória
+                // Libera memória
                 if (croppedBitmap != optimizedBitmap) {
                     croppedBitmap.recycle()
                 }
                 optimizedBitmap.recycle()
                 
                 withContext(Dispatchers.Main) {
-                    // 🔇 Área salva silenciosamente
+                    // Área salva silenciosamente
                 }
                 
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    // 🔇 Erro ao salvar - silencioso
+                    // Erro ao salvar - silencioso
                 }
             }
         }
@@ -658,36 +658,36 @@ class UltimateImageViewerActivity : Activity() {
             originalBitmap = croppedBitmap
             
             enterMagicalDrawingMode()
-            // 🔇 Imagem recortada silenciosamente
+            // Imagem recortada silenciosamente
             
         } catch (e: Exception) {
-            // 🔇 Erro ao recortar - silencioso
+            // Erro ao recortar - silencioso
         }
     }
 
     /**
-     * 🔍 Pesquisa conteúdo selecionado
+     * Pesquisa conteúdo selecionado
      */
     private fun searchSelectedContent() {
-        // 🔇 Pesquisa em desenvolvimento - silencioso
+        // Pesquisa em desenvolvimento - silencioso
         // TODO: Implementar pesquisa
     }
 
     /**
-     * 🤖 Executa scan de IA na área selecionada
+     * Executa scan de IA na área selecionada
      */
     private fun performAIScan() {
         val region = selectedRegion
         val bitmap = originalBitmap
         
         if (region == null || bitmap == null) {
-            // 🔇 Área não selecionada - silencioso
+            // Área não selecionada - silencioso
             return
         }
 
         Log.d(TAG, "🤖 Iniciando scan de IA para região: $region")
         
-        // 🎨 Ativa estado visual de processamento minimalista
+        // Ativa estado visual de processamento minimalista
         imageView.showProcessing()
         
         // Esconde menu
@@ -701,20 +701,20 @@ class UltimateImageViewerActivity : Activity() {
                 
                 // Executa detecção de IA
                 val result = aiDetectionService.detectAIGenerated(croppedBitmap) { progress ->
-                    // 🔇 Progresso silencioso
+                    // Progresso silencioso
                 }
                 
                 result.fold(
                     onSuccess = { aiResult ->
                         // Scan de IA concluído
                         
-                        // 🎉 Ativa estado visual de sucesso
+                        // Ativa estado visual de sucesso
                         imageView.showSuccess()
                         
                         // Mostra resultados no dialog elegante
                         aiResultsDialog.showResults(aiResult)
                         
-                        // 🔄 Volta ao normal após 2 segundos (mais rápido)
+                        // Volta ao normal após 2 segundos (mais rápido)
                         launch {
                             delay(2000)
                             imageView.showNormal()
@@ -723,15 +723,15 @@ class UltimateImageViewerActivity : Activity() {
                     onFailure = { error ->
                         Log.e(TAG, "❌ Erro no scan de IA: ${error.message}", error)
                         
-                        // ❌ Ativa estado visual de erro
+                        // Ativa estado visual de erro
                         imageView.showError()
                         
-                        // 🔇 Erro de IA silencioso
+                        // Erro de IA silencioso
                         
                         // Volta para o menu
                         actionMenu.showMenu()
                         
-                        // 🔄 Volta ao normal após 600ms (ultra rápido)
+                        // Volta ao normal após 600ms (ultra rápido)
                         launch {
                             delay(600)
                             imageView.showNormal()
@@ -741,14 +741,14 @@ class UltimateImageViewerActivity : Activity() {
                 
             } catch (e: Exception) {
                 Log.e(TAG, "❌ Erro no scan de IA: ${e.message}", e)
-                // 🔇 Erro de IA silencioso
+                // Erro de IA silencioso
                 actionMenu.showMenu()
             }
         }
     }
 
     /**
-     * 🎨 Otimiza qualidade da imagem
+     * Otimiza qualidade da imagem
      */
     private fun optimizeBitmapQuality(bitmap: Bitmap): Bitmap {
         // Se a imagem é muito pequena, não otimiza
@@ -770,10 +770,10 @@ class UltimateImageViewerActivity : Activity() {
         }
     }
 
-    // 🚫 resetToDrawingMode removida - substituída por enterMagicalDrawingMode
+    // resetToDrawingMode removida - substituída por enterMagicalDrawingMode
 
     /**
-     * 🔄 Converte coordenadas da seleção para o ImageView
+     * Converte coordenadas da seleção para o ImageView
      */
     private fun convertToImageCoordinates(selectionRect: RectF): RectF {
         // Como ambas as views ocupam a tela toda, as coordenadas são as mesmas
@@ -781,42 +781,42 @@ class UltimateImageViewerActivity : Activity() {
     }
 
     /**
-     * 🎯 Posiciona menu inteligentemente baseado na seleção
+     * Posiciona menu inteligentemente baseado na seleção
      */
     private fun updateActionMenuPosition(selectionRect: RectF) {
-        val menuHeight = 400 // 🎯 Altura real do menu expandido
-        val menuWidth = 200 // 🎯 Largura estimada
-        val margin = 24f // 🎨 Margem elegante
+        val menuHeight = 400 // Altura real do menu expandido
+        val menuWidth = 200 // Largura estimada
+        val margin = 24f // Margem elegante
         
-        // 📱 Dimensões da tela
+        // Dimensões da tela
         val screenHeight = mainContainer.height
         val screenWidth = mainContainer.width
         
-        // 🧠 Posicionamento inteligente com limites seguros
+        // Posicionamento inteligente com limites seguros
         val layoutParams = actionMenu.layoutParams as FrameLayout.LayoutParams
         
-        // 🎯 Prioridade: direita da seleção
+        // Prioridade: direita da seleção
         when {
-            // 1️⃣ Direita tem espaço suficiente
+            // Direita tem espaço suficiente
             selectionRect.right + menuWidth + margin < screenWidth -> {
                 layoutParams.leftMargin = (selectionRect.right + margin).toInt()
                 layoutParams.topMargin = calculateSafeTopMargin(selectionRect.centerY(), menuHeight, screenHeight)
                 layoutParams.gravity = Gravity.LEFT or Gravity.TOP
             }
-            // 2️⃣ Esquerda tem espaço
+            // Esquerda tem espaço
             selectionRect.left - menuWidth - margin > 0 -> {
                 layoutParams.rightMargin = (screenWidth - selectionRect.left + margin).toInt()
                 layoutParams.topMargin = calculateSafeTopMargin(selectionRect.centerY(), menuHeight, screenHeight)
                 layoutParams.gravity = Gravity.RIGHT or Gravity.TOP
             }
-            // 3️⃣ Acima da seleção
+            // Acima da seleção
             selectionRect.top - menuHeight - margin > 50 -> {
                 layoutParams.leftMargin = 0
                 layoutParams.rightMargin = 0
                 layoutParams.topMargin = (selectionRect.top - menuHeight - margin).toInt()
                 layoutParams.gravity = Gravity.CENTER_HORIZONTAL or Gravity.TOP
             }
-            // 4️⃣ Abaixo da seleção (último recurso)
+            // Abaixo da seleção (último recurso)
             else -> {
                 layoutParams.leftMargin = 0
                 layoutParams.rightMargin = 0
@@ -829,21 +829,21 @@ class UltimateImageViewerActivity : Activity() {
     }
     
     /**
-     * 🎯 Calcula margem superior segura para o menu
+     * Calcula margem superior segura para o menu
      */
     private fun calculateSafeTopMargin(centerY: Float, menuHeight: Int, screenHeight: Int): Int {
         val desiredTop = centerY - menuHeight / 2
         
-        // 🚫 Garante que o menu não ultrapasse o topo
+        // Garante que o menu não ultrapasse o topo
         val safeTop = desiredTop.coerceAtLeast(50f)
         
-        // 🚫 Garante que o menu não ultrapasse a parte inferior
+        // Garante que o menu não ultrapasse a parte inferior
         val maxTop = screenHeight - menuHeight - 50f
         return safeTop.coerceAtMost(maxTop).toInt()
     }
 
     /**
-     * 🎯 Mostra menu de ações
+     * Mostra menu de ações
      */
     private fun showActionMenu() {
         val selectionRect = elegantSelectionView.getSelectionRect()
@@ -856,7 +856,7 @@ class UltimateImageViewerActivity : Activity() {
     }
 
     /**
-     * 🫥 Esconde menu e OCR
+     * Esconde menu e OCR
      */
     private fun hideMenuAndOCR() {
         actionMenu.hideMenu()
@@ -865,10 +865,10 @@ class UltimateImageViewerActivity : Activity() {
     }
 
     /**
-     * 📝 Mostra instruções do OCR
+     * Mostra instruções do OCR
      */
     private fun showOCRInstructions() {
-        // 🔇 Instruções OCR silenciosas
+        // Instruções OCR silenciosas
     }
 
     /**
@@ -884,13 +884,13 @@ class UltimateImageViewerActivity : Activity() {
     }
 
     /**
-     * 💾 Salva bitmap em arquivo com qualidade otimizada
+     * Salva bitmap em arquivo com qualidade otimizada
      */
     private fun saveBitmapToFile(bitmap: Bitmap, prefix: String = "lumin"): File {
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
         val fileName = "${prefix}_$timeStamp.jpg"
         
-        // 📁 Salva na pasta Pictures/Lumin
+        // Salva na pasta Pictures/Lumin
         val picturesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
         val luminDir = File(picturesDir, "Lumin")
         if (!luminDir.exists()) {
@@ -899,14 +899,14 @@ class UltimateImageViewerActivity : Activity() {
         
         val file = File(luminDir, fileName)
         FileOutputStream(file).use { out ->
-            // 🎯 Qualidade alta para preservar detalhes
+            // Qualidade alta para preservar detalhes
             bitmap.compress(Bitmap.CompressFormat.JPEG, 95, out)
         }
         
         return file
     }
 
-    // 🔇 Função showToast removida - operação silenciosa
+    // Função showToast removida - operação silenciosa
 
     /**
      * ❌ Mostra erro e fecha
@@ -918,7 +918,7 @@ class UltimateImageViewerActivity : Activity() {
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        // ✅ SIMPLES: apenas fechar a activity
+        // SIMPLES: apenas fechar a activity
         finish()
     }
 

@@ -21,8 +21,13 @@ color white
 drawable app_background_gradient
 drawable circular_button_background
 drawable floating_button_background
+drawable ic_ai_brain
+drawable ic_close
 drawable ic_floating_button
 drawable ic_lumin_app_icon
+drawable ic_save
+drawable ic_search
+drawable ic_text_recognition
 drawable lumin_instruction_card
 drawable lumin_logo_background
 drawable lumin_outline_button
