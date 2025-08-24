@@ -339,9 +339,12 @@ class ScreenCaptureActivity : Activity() {
         }
     }
     
+
+
+
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        // Impede o botão voltar de funcionar
-        Log.d(TAG, "onBackPressed: Botão voltar bloqueado")
-        // Não chama super.onBackPressed()
+        // ✅ SIMPLES: apenas fechar a activity
+        finish()
     }
 }

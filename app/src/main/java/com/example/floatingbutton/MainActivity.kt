@@ -1,5 +1,5 @@
 package com.example.floatingbutton
-
+import android.app.Activity
 import android.content.Intent
 import android.net.Uri
 import android.os.Build
@@ -17,14 +17,13 @@ import android.widget.ImageView
 
 class MainActivity : AppCompatActivity() {
     
-    private lateinit var imageView: ImageView
-    private lateinit var tvImageStatus: TextView
+    // ❌ REMOVER estas variáveis (não são mais necessárias)
+    // private lateinit var imageView: ImageView
+    // private lateinit var tvImageStatus: TextView
     
     companion object {
         private const val TAG = "MainActivity"
     }
-    
-    // Activity Result Launcher para permissão de sobreposição
     
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -32,99 +31,32 @@ class MainActivity : AppCompatActivity() {
         try {
             setContentView(R.layout.activity_main)
             
-            // Inicializa views
+            // ✅ APENAS inicialização da tela inicial
             initViews()
-            
-            // Verifica se recebeu uma imagem compartilhada
-            handleSharedImage(intent)
-            
+            setupUI()
+            checkOverlayPermission()
             
         } catch (e: Exception) {
             Log.e(TAG, "onCreate: Erro crítico: ${e.message}", e)
         }
     }
     
-    override fun onNewIntent(intent: Intent?) {
-        super.onNewIntent(intent)
-        // NOVO: Trata quando o usuário compartilha uma nova imagem
-        handleSharedImage(intent)
-    }
+    // ❌ REMOVER estas funções (não são mais necessárias)
+    // override fun onNewIntent(intent: Intent?)
+    // private fun handleSharedImage(intent: Intent?)
+    // private fun displaySharedImage(imageUri: Uri)
+    // private fun openImageViewer(imageUri: Uri)
     
-    private fun handleSharedImage(intent: Intent?) {
-        if (intent?.action == Intent.ACTION_SEND && intent.type?.startsWith("image/") == true) {
-            Log.d(TAG, "handleSharedImage: Recebeu imagem compartilhada!")
-            
-            val imageUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
-                intent.getParcelableExtra(Intent.EXTRA_STREAM, Uri::class.java)
-            } else {
-                @Suppress("DEPRECATION")
-                intent.getParcelableExtra(Intent.EXTRA_STREAM)
-            }
-            
-            if (imageUri != null) {
-                Log.d(TAG, "handleSharedImage: URI da imagem: $imageUri")
-                displaySharedImage(imageUri)
-            } else {
-                Log.e(TAG, "handleSharedImage: URI da imagem é null!")
-            }
-        }
-    }
-    
-    private fun displaySharedImage(imageUri: Uri) {
-        try {
-            Log.d(TAG, "displaySharedImage: Exibindo imagem compartilhada...")
-            
-            // Exibe a imagem na ImageView
-            // Views já inicializadas em initViews()
-            
-            if (imageView != null) {
-                imageView.setImageURI(imageUri)
-                tvImageStatus?.text = "✅ Imagem recebida com sucesso!"
-                tvImageStatus?.setTextColor(getColor(R.color.success_text))
-                
-                Log.d(TAG, "displaySharedImage: Imagem exibida com sucesso!")
-                // 🔇 Imagem processada silenciosamente
-                
-                // NOVO: Abre a ImageViewerActivity em fullscreen
-                openImageViewer(imageUri)
-                
-            } else {
-                Log.w(TAG, "displaySharedImage: ImageView não encontrada no layout!")
-                // 🔇 Erro silencioso
-            }
-            
-        } catch (e: Exception) {
-            Log.e(TAG, "displaySharedImage: Erro ao exibir imagem: ${e.message}", e)
-            // 🔇 Erro silencioso
-        }
-    }
-    
-    private fun openImageViewer(imageUri: Uri) {
-        try {
-            Log.d(TAG, "openImageViewer: Abrindo visualizador fullscreen...")
-            
-                                val intent = Intent(this, UltimateImageViewerActivity::class.java).apply {
-                        putExtra(UltimateImageViewerActivity.EXTRA_IMAGE_URI, imageUri)
-                    }
-            
-            startActivity(intent)
-            Log.d(TAG, "openImageViewer: ImageViewerActivity iniciada")
-            
-        } catch (e: Exception) {
-            Log.e(TAG, "openImageViewer: Erro ao abrir visualizador: ${e.message}", e)
-            // 🔇 Erro silencioso
-        }
-    }
-    
+    // ✅ MANTER apenas funções da tela inicial
     private fun initViews() {
-        imageView = findViewById(R.id.imageView)
-        tvImageStatus = findViewById(R.id.tvImageStatus)
+        // ... views da tela inicial (botões, etc.)
     }
     
-    
-    override fun onResume() {
-        super.onResume()
+    private fun setupUI() {
+        // ... configuração dos botões
     }
     
-    // 🔇 Função showToast removida - operação silenciosa
+    private fun checkOverlayPermission() {
+        // ... verificação de permissões
+    }
 }

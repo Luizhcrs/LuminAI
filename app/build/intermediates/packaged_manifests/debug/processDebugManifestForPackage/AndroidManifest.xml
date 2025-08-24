@@ -47,6 +47,8 @@
         android:supportsRtl="true"
         android:testOnly="true"
         android:theme="@style/Theme.Lumin" >
+
+        <!-- ✅ MainActivity - Tela inicial -->
         <activity
             android:name="com.example.floatingbutton.MainActivity"
             android:exported="true"
@@ -56,8 +58,17 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
 
-            <!-- Intent filter para receber imagens compartilhadas -->
+        <!-- ✅ UltimateImageViewerActivity - Recebe imagens compartilhadas -->
+        <activity
+            android:name="com.example.floatingbutton.UltimateImageViewerActivity"
+            android:exported="true"
+            android:hardwareAccelerated="true"
+            android:screenOrientation="portrait"
+            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" >
+
+            <!-- INTENT FILTER PARA SHARE DIRETO -->
             <intent-filter>
                 <action android:name="android.intent.action.SEND" />
 
@@ -80,17 +91,6 @@
             android:excludeFromRecents="true"
             android:exported="false"
             android:theme="@android:style/Theme.Translucent.NoTitleBar" />
-
-        <!-- 🚀 Ultimate Image Viewer - Experiência definitiva -->
-        <activity
-            android:name="com.example.floatingbutton.UltimateImageViewerActivity"
-            android:exported="false"
-            android:hardwareAccelerated="true"
-            android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.NoTitleBar.Fullscreen" />
-
-        <!-- 🗑️ Activities obsoletas removidas -->
-
 
         <!-- FileProvider para compartilhamento de arquivos -->
         <provider

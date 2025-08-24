@@ -6,6 +6,7 @@ import android.animation.ObjectAnimator
 import android.graphics.*
 import android.net.Uri
 import android.os.Bundle
+import android.os.Build
 import android.os.Environment
 import android.util.Log
 import android.view.Gravity
@@ -76,17 +77,45 @@ class UltimateImageViewerActivity : Activity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         
-        Log.d(TAG, "🚀 Iniciando Ultimate Image Viewer...")
+        Log.d(TAG, " Iniciando Ultimate Image Viewer...")
         
+        // ✅ PRIMEIRO: Configurar views
         setupViews()
-        loadImage()
         setupInteractions()
         initializeAI()
         
-        // 🖌️ Inicia no modo de pincel mágico
-        enterMagicalDrawingMode()
+        // ✅ SEGUNDO: Processar imagem compartilhada (se houver)
+        if (intent?.action == Intent.ACTION_SEND && intent.type?.startsWith("image/") == true) {
+            // ✅ RECEBEU IMAGEM VIA SHARE - PROCESSAR DIRETO
+            handleSharedImage(intent)
+        } else {
+            // ❌ NÃO RECEBEU IMAGEM - FECHAR
+            Log.w(TAG, "Nenhuma imagem recebida, fechando...")
+            finish()
+            return
+        }
         
-        showWelcomeHint()
+        // ✅ TERCEIRO: Inicia no modo de pincel mágico
+        enterMagicalDrawingMode()
+    }
+
+    // 🎯 ADICIONAR FUNÇÃO PARA PROCESSAR IMAGEM COMPARTILHADA
+    private fun handleSharedImage(intent: Intent) {
+        val imageUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+            intent.getParcelableExtra(Intent.EXTRA_STREAM, Uri::class.java)
+        } else {
+            @Suppress("DEPRECATION")
+            intent.getParcelableExtra(Intent.EXTRA_STREAM)
+        }
+        
+        if (imageUri != null) {
+            Log.d(TAG, "handleSharedImage: URI da imagem: $imageUri")
+            this.imageUri = imageUri
+            loadImage()
+        } else {
+            Log.e(TAG, "handleSharedImage: URI da imagem é null!")
+            finish()
+        }
     }
 
     /**
@@ -204,8 +233,7 @@ class UltimateImageViewerActivity : Activity() {
      * 🖼️ Carrega a imagem recebida
      */
     private fun loadImage() {
-        imageUri = intent.getParcelableExtra(EXTRA_IMAGE_URI)
-        
+        // ✅ Usa a URI já processada em handleSharedImage()
         if (imageUri == null) {
             Log.e(TAG, "❌ URI da imagem não fornecida")
             showError("Erro: Imagem não encontrada")
@@ -798,21 +826,8 @@ class UltimateImageViewerActivity : Activity() {
 
     @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
-        when (currentMode) {
-            ViewMode.OCR_ACTIVE -> {
-                enterMagicalDrawingMode()
-            }
-            ViewMode.MENU_VISIBLE -> {
-                enterMagicalDrawingMode()
-            }
-            ViewMode.SMART_SELECTION -> {
-                enterMagicalDrawingMode()
-            }
-            ViewMode.MAGICAL_DRAWING -> {
-                @Suppress("DEPRECATION")
-                super.onBackPressed()
-            }
-        }
+        // ✅ SIMPLES: apenas fechar a activity
+        finish()
     }
 
     override fun onDestroy() {
