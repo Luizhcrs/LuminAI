@@ -399,6 +399,14 @@ class UltimateImageViewerActivity : Activity() {
         
         // 🔄 Converte pontos livres em retângulo elegante
         val bounds = calculateBounds(points)
+        
+        // 🚫 VALIDA SE A SELEÇÃO É VÁLIDA
+        if (!isValidSelection(bounds)) {
+            Log.w(TAG, "⚠️ Seleção inválida, voltando ao modo de desenho")
+            magicalBrushView.clearDrawing()
+            return
+        }
+        
         selectedRegion = bounds
         
         Log.d(TAG, "📐 Bounds calculados: $bounds")
@@ -416,7 +424,30 @@ class UltimateImageViewerActivity : Activity() {
     }
     
     /**
-     * 📐 Calcula bounds dos pontos
+     * ✅ Valida se a seleção é adequada para uso
+     */
+    private fun isValidSelection(bounds: RectF): Boolean {
+        // 🚫 Verifica tamanho mínimo
+        if (bounds.width() < 80f || bounds.height() < 80f) {
+            Log.w(TAG, "⚠️ Seleção muito pequena: ${bounds.width()}x${bounds.height()}")
+            return false
+        }
+        
+        // 🚫 Verifica se está dentro dos limites da tela
+        val screenWidth = mainContainer.width.toFloat()
+        val screenHeight = mainContainer.height.toFloat()
+        
+        if (bounds.left < 0f || bounds.top < 0f || 
+            bounds.right > screenWidth || bounds.bottom > screenHeight) {
+            Log.w(TAG, "⚠️ Seleção fora dos limites da tela")
+            return false
+        }
+        
+        return true
+    }
+    
+    /**
+     * 📐 Calcula bounds dos pontos com limites seguros
      */
     private fun calculateBounds(points: List<PointF>): RectF {
         if (points.isEmpty()) return RectF()
@@ -435,12 +466,59 @@ class UltimateImageViewerActivity : Activity() {
         
         // 📏 Adiciona margem
         val margin = 20f
-        return RectF(
+        
+        // 🎯 Calcula bounds iniciais
+        val bounds = RectF(
             maxOf(0f, minX - margin),
             maxOf(0f, minY - margin),
-            minOf(magicalBrushView.width.toFloat(), maxX + margin),
-            minOf(magicalBrushView.height.toFloat(), maxY + margin)
+            maxX + margin,
+            maxY + margin
         )
+        
+        // 🚫 APLICA LIMITES DE SEGURANÇA
+        return applySafeBounds(bounds)
+    }
+    
+    /**
+     * 🚫 Aplica limites seguros para a seleção
+     */
+    private fun applySafeBounds(bounds: RectF): RectF {
+        // 📱 Dimensões da tela (usando mainContainer)
+        val screenWidth = mainContainer.width.toFloat()
+        val screenHeight = mainContainer.height.toFloat()
+        
+        // 🎯 Margens de segurança para botões e elementos da UI
+        val safeMargin = 80f // Margem para botões e elementos
+        val minSelectionSize = 100f // Tamanho mínimo da seleção
+        
+        // 🚫 Limita largura e altura
+        var safeWidth = bounds.width().coerceAtLeast(minSelectionSize)
+        var safeHeight = bounds.height().coerceAtLeast(minSelectionSize)
+        
+        // 🚫 Garante que não ultrapasse a largura da tela
+        if (bounds.left + safeWidth > screenWidth - safeMargin) {
+            safeWidth = screenWidth - bounds.left - safeMargin
+        }
+        
+        // 🚫 Garante que não ultrapasse a altura da tela
+        if (bounds.top + safeHeight > screenHeight - safeMargin) {
+            safeHeight = screenHeight - bounds.top - safeMargin
+        }
+        
+        // 🚫 Garante que não ultrapasse a esquerda
+        var safeLeft = bounds.left.coerceAtLeast(safeMargin)
+        if (safeLeft + safeWidth > screenWidth - safeMargin) {
+            safeLeft = screenWidth - safeWidth - safeMargin
+        }
+        
+        // 🚫 Garante que não ultrapasse o topo
+        var safeTop = bounds.top.coerceAtLeast(safeMargin)
+        if (safeTop + safeHeight > screenHeight - safeMargin) {
+            safeTop = screenHeight - safeHeight - safeMargin
+        }
+        
+        // 🎯 Retorna bounds seguros
+        return RectF(safeLeft, safeTop, safeLeft + safeWidth, safeTop + safeHeight)
     }
 
     /**
@@ -714,7 +792,7 @@ class UltimateImageViewerActivity : Activity() {
         val screenHeight = mainContainer.height
         val screenWidth = mainContainer.width
         
-        // 🧠 Posicionamento inteligente
+        // 🧠 Posicionamento inteligente com limites seguros
         val layoutParams = actionMenu.layoutParams as FrameLayout.LayoutParams
         
         // 🎯 Prioridade: direita da seleção
@@ -722,13 +800,13 @@ class UltimateImageViewerActivity : Activity() {
             // 1️⃣ Direita tem espaço suficiente
             selectionRect.right + menuWidth + margin < screenWidth -> {
                 layoutParams.leftMargin = (selectionRect.right + margin).toInt()
-                layoutParams.topMargin = (selectionRect.centerY() - menuHeight/2).coerceAtLeast(50f).toInt()
+                layoutParams.topMargin = calculateSafeTopMargin(selectionRect.centerY(), menuHeight, screenHeight)
                 layoutParams.gravity = Gravity.LEFT or Gravity.TOP
             }
             // 2️⃣ Esquerda tem espaço
             selectionRect.left - menuWidth - margin > 0 -> {
                 layoutParams.rightMargin = (screenWidth - selectionRect.left + margin).toInt()
-                layoutParams.topMargin = (selectionRect.centerY() - menuHeight/2).coerceAtLeast(50f).toInt()
+                layoutParams.topMargin = calculateSafeTopMargin(selectionRect.centerY(), menuHeight, screenHeight)
                 layoutParams.gravity = Gravity.RIGHT or Gravity.TOP
             }
             // 3️⃣ Acima da seleção
@@ -748,6 +826,20 @@ class UltimateImageViewerActivity : Activity() {
         }
         
         actionMenu.layoutParams = layoutParams
+    }
+    
+    /**
+     * 🎯 Calcula margem superior segura para o menu
+     */
+    private fun calculateSafeTopMargin(centerY: Float, menuHeight: Int, screenHeight: Int): Int {
+        val desiredTop = centerY - menuHeight / 2
+        
+        // 🚫 Garante que o menu não ultrapasse o topo
+        val safeTop = desiredTop.coerceAtLeast(50f)
+        
+        // 🚫 Garante que o menu não ultrapasse a parte inferior
+        val maxTop = screenHeight - menuHeight - 50f
+        return safeTop.coerceAtMost(maxTop).toInt()
     }
 
     /**
