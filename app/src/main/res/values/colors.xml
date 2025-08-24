@@ -23,6 +23,7 @@
     <color name="warning_text">#FF8B0000</color>
     <color name="success_text">#FF006400</color>
     <color name="error_text">#FFDC143C</color>
+    <color name="secondary_text">#757575</color>
     
     <!-- Cores do botão flutuante -->
     <color name="floating_button_color">#FF6200EE</color>

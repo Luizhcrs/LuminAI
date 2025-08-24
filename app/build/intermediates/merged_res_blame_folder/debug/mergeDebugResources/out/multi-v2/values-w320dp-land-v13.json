@@ -1,7 +1,7 @@
 {
     "logs": [
         {
-            "outputFile": "com.example.floatingbutton.app-mergeDebugResources-36:/values-w320dp-land-v13/values-w320dp-land-v13.xml",
+            "outputFile": "com.example.floatingbutton.app-mergeDebugResources-42:/values-w320dp-land-v13/values-w320dp-land-v13.xml",
             "map": [
                 {
                     "source": "C:\\Users\\GB4\\.gradle\\caches\\8.9\\transforms\\cbf2fb86a201e584b659a2b08ae43b56\\transformed\\material-1.11.0\\res\\values-w320dp-land-v13\\values-w320dp-land-v13.xml",

@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
@@ -30,15 +31,23 @@ public final class ActivityMainBinding implements ViewBinding {
   public final Button btnStopService;
 
   @NonNull
+  public final ImageView imageView;
+
+  @NonNull
+  public final TextView tvImageStatus;
+
+  @NonNull
   public final TextView tvPermissionStatus;
 
   private ActivityMainBinding(@NonNull LinearLayout rootView, @NonNull Button btnCheckPermission,
-      @NonNull Button btnStartService, @NonNull Button btnStopService,
-      @NonNull TextView tvPermissionStatus) {
+      @NonNull Button btnStartService, @NonNull Button btnStopService, @NonNull ImageView imageView,
+      @NonNull TextView tvImageStatus, @NonNull TextView tvPermissionStatus) {
     this.rootView = rootView;
     this.btnCheckPermission = btnCheckPermission;
     this.btnStartService = btnStartService;
     this.btnStopService = btnStopService;
+    this.imageView = imageView;
+    this.tvImageStatus = tvImageStatus;
     this.tvPermissionStatus = tvPermissionStatus;
   }
 
@@ -87,6 +96,18 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
+      id = R.id.imageView;
+      ImageView imageView = ViewBindings.findChildViewById(rootView, id);
+      if (imageView == null) {
+        break missingId;
+      }
+
+      id = R.id.tvImageStatus;
+      TextView tvImageStatus = ViewBindings.findChildViewById(rootView, id);
+      if (tvImageStatus == null) {
+        break missingId;
+      }
+
       id = R.id.tvPermissionStatus;
       TextView tvPermissionStatus = ViewBindings.findChildViewById(rootView, id);
       if (tvPermissionStatus == null) {
@@ -94,7 +115,7 @@ public final class ActivityMainBinding implements ViewBinding {
       }
 
       return new ActivityMainBinding((LinearLayout) rootView, btnCheckPermission, btnStartService,
-          btnStopService, tvPermissionStatus);
+          btnStopService, imageView, tvImageStatus, tvPermissionStatus);
     }
     String missingId = rootView.getResources().getResourceName(id);
     throw new NullPointerException("Missing required view with ID: ".concat(missingId));

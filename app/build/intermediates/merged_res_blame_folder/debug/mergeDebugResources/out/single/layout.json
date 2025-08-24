@@ -1,10 +1,14 @@
 [
     {
-        "merged": "com.example.floatingbutton.app-mergeDebugResources-37:/layout/floating_button_layout.xml",
-        "source": "com.example.floatingbutton.app-main-40:/layout/floating_button_layout.xml"
+        "merged": "com.example.floatingbutton.app-mergeDebugResources-43:/layout/activity_image_viewer.xml",
+        "source": "com.example.floatingbutton.app-main-46:/layout/activity_image_viewer.xml"
     },
     {
-        "merged": "com.example.floatingbutton.app-mergeDebugResources-37:/layout/activity_main.xml",
-        "source": "com.example.floatingbutton.app-main-40:/layout/activity_main.xml"
+        "merged": "com.example.floatingbutton.app-mergeDebugResources-43:/layout/activity_main.xml",
+        "source": "com.example.floatingbutton.app-main-46:/layout/activity_main.xml"
+    },
+    {
+        "merged": "com.example.floatingbutton.app-mergeDebugResources-43:/layout/floating_button_layout.xml",
+        "source": "com.example.floatingbutton.app-main-46:/layout/floating_button_layout.xml"
     }
 ]

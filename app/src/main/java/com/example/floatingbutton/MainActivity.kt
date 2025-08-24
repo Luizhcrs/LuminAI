@@ -48,10 +48,86 @@ class MainActivity : AppCompatActivity() {
             setupUI()
             Log.d(TAG, "onCreate: UI configurada")
             
+            // NOVO: Verifica se recebeu uma imagem compartilhada
+            handleSharedImage(intent)
+            
             checkOverlayPermission()
             Log.d(TAG, "onCreate: Permissão verificada")
         } catch (e: Exception) {
             Log.e(TAG, "onCreate: Erro crítico: ${e.message}", e)
+        }
+    }
+    
+    override fun onNewIntent(intent: Intent?) {
+        super.onNewIntent(intent)
+        // NOVO: Trata quando o usuário compartilha uma nova imagem
+        handleSharedImage(intent)
+    }
+    
+    private fun handleSharedImage(intent: Intent?) {
+        if (intent?.action == Intent.ACTION_SEND && intent.type?.startsWith("image/") == true) {
+            Log.d(TAG, "handleSharedImage: Recebeu imagem compartilhada!")
+            
+            val imageUri = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.TIRAMISU) {
+                intent.getParcelableExtra(Intent.EXTRA_STREAM, Uri::class.java)
+            } else {
+                @Suppress("DEPRECATION")
+                intent.getParcelableExtra(Intent.EXTRA_STREAM)
+            }
+            
+            if (imageUri != null) {
+                Log.d(TAG, "handleSharedImage: URI da imagem: $imageUri")
+                displaySharedImage(imageUri)
+            } else {
+                Log.e(TAG, "handleSharedImage: URI da imagem é null!")
+            }
+        }
+    }
+    
+    private fun displaySharedImage(imageUri: Uri) {
+        try {
+            Log.d(TAG, "displaySharedImage: Exibindo imagem compartilhada...")
+            
+            // Exibe a imagem na ImageView
+            val imageView = binding.imageView
+            val tvImageStatus = binding.tvImageStatus
+            
+            if (imageView != null) {
+                imageView.setImageURI(imageUri)
+                tvImageStatus?.text = "✅ Imagem recebida com sucesso!"
+                tvImageStatus?.setTextColor(getColor(R.color.success_text))
+                
+                Log.d(TAG, "displaySharedImage: Imagem exibida com sucesso!")
+                Toast.makeText(this, "Imagem recebida com sucesso!", Toast.LENGTH_LONG).show()
+                
+                // NOVO: Abre a ImageViewerActivity em fullscreen
+                openImageViewer(imageUri)
+                
+            } else {
+                Log.w(TAG, "displaySharedImage: ImageView não encontrada no layout!")
+                Toast.makeText(this, "Imagem recebida, mas não há onde exibir!", Toast.LENGTH_LONG).show()
+            }
+            
+        } catch (e: Exception) {
+            Log.e(TAG, "displaySharedImage: Erro ao exibir imagem: ${e.message}", e)
+            Toast.makeText(this, "Erro ao exibir imagem: ${e.message}", Toast.LENGTH_LONG).show()
+        }
+    }
+    
+    private fun openImageViewer(imageUri: Uri) {
+        try {
+            Log.d(TAG, "openImageViewer: Abrindo visualizador fullscreen...")
+            
+                                val intent = Intent(this, UltimateImageViewerActivity::class.java).apply {
+                        putExtra(UltimateImageViewerActivity.EXTRA_IMAGE_URI, imageUri)
+                    }
+            
+            startActivity(intent)
+            Log.d(TAG, "openImageViewer: ImageViewerActivity iniciada")
+            
+        } catch (e: Exception) {
+            Log.e(TAG, "openImageViewer: Erro ao abrir visualizador: ${e.message}", e)
+            Toast.makeText(this, "Erro ao abrir visualizador: ${e.message}", Toast.LENGTH_SHORT).show()
         }
     }
     
