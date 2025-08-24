@@ -34,7 +34,8 @@ class AIResultsDialog @JvmOverloads constructor(
 
     companion object {
         private const val TAG = "AIResultsDialog"
-        private const val ANIMATION_DURATION = 500L
+        private const val ANIMATION_DURATION = 200L // 🚀 Ultra rápido
+        private const val BOUNCE_SCALE = 1.1f // 🎯 Efeito bounce
     }
 
     // 🎨 Views principais
@@ -56,45 +57,46 @@ class AIResultsDialog @JvmOverloads constructor(
     }
 
     /**
-     * 🎨 Configura as views com design moderno
+     * 🎨 Configura as views com design Lumin moderno
      */
     private fun setupViews() {
         orientation = VERTICAL
         gravity = Gravity.CENTER
-        setPadding(32, 32, 32, 32)
+        setPadding(24, 24, 24, 24)
         
-        // Container principal com card design
+        // Container principal com design Lumin
         containerCard = LinearLayout(context).apply {
             orientation = VERTICAL
             gravity = Gravity.CENTER_HORIZONTAL
-            setPadding(32, 32, 32, 32)
-            background = createCardBackground()
-            elevation = 16f
+            setPadding(48, 48, 48, 48)
+            background = createLuminCardBackground()
+            elevation = 24f
         }
 
-        // Emoji grande
+        // Ícone Lumin moderno
         emojiView = TextView(context).apply {
-            textSize = 48f
+            textSize = 72f // 🎯 Muito maior para impacto
             gravity = Gravity.CENTER
+            text = "✨" // Ícone padrão Lumin
             layoutParams = LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
             ).apply {
-                bottomMargin = 16
+                bottomMargin = 32 // 🎨 Ainda mais espaço
             }
         }
 
         // Título principal
         titleView = TextView(context).apply {
-            textSize = 24f
-            setTextColor(Color.WHITE)
+            textSize = 28f // 🎯 Maior
+            setTextColor(Color.parseColor("#FF069E6E")) // 🌟 Cor Lumin
             typeface = Typeface.DEFAULT_BOLD
             gravity = Gravity.CENTER
             layoutParams = LinearLayout.LayoutParams(
                 ViewGroup.LayoutParams.WRAP_CONTENT,
                 ViewGroup.LayoutParams.WRAP_CONTENT
             ).apply {
-                bottomMargin = 8
+                bottomMargin = 16 // 🎨 Mais espaço
             }
         }
 
@@ -149,17 +151,20 @@ class AIResultsDialog @JvmOverloads constructor(
             }
         }
 
-        // Botão de fechar
+        // Botão de fechar moderno
         closeButton = TextView(context).apply {
-            text = "✅ Entendi"
-            textSize = 16f
+            text = "Entendi"
+            textSize = 18f
             setTextColor(Color.WHITE)
             typeface = Typeface.DEFAULT_BOLD
             gravity = Gravity.CENTER
-            setPadding(32, 16, 32, 16)
-            background = createButtonBackground()
+            setPadding(48, 20, 48, 20)
+            background = createLuminButtonBackground()
             isClickable = true
             isFocusable = true
+            
+            // 🎯 Efeito de toque
+            foreground = createRippleEffect()
             
             setOnClickListener {
                 hideWithAnimation()
@@ -185,26 +190,47 @@ class AIResultsDialog @JvmOverloads constructor(
     }
 
     /**
-     * 🎨 Cria background do card
+     * 🎨 Cria background moderno do Lumin
      */
-    private fun createCardBackground(): GradientDrawable {
+    private fun createLuminCardBackground(): GradientDrawable {
         return GradientDrawable().apply {
             shape = GradientDrawable.RECTANGLE
-            cornerRadius = 24f
-            setColor(Color.parseColor("#2D2D2D"))
-            setStroke(2, Color.parseColor("#404040"))
+            cornerRadius = 28f // 🎯 Mais arredondado
+            
+            // 🌟 Gradiente elegante Lumin
+            colors = intArrayOf(
+                Color.parseColor("#FF1A2F2F"), // Verde-azulado escuro
+                Color.parseColor("#FF0F1A1A"), // Centro mais escuro
+                Color.parseColor("#FF1A2A2A")  // Base escura
+            )
+            orientation = GradientDrawable.Orientation.TL_BR
+            
+            // ✨ Borda luminosa
+            setStroke(3, Color.parseColor("#80069E6E"))
         }
     }
 
     /**
      * 🎨 Cria background do botão
      */
-    private fun createButtonBackground(): GradientDrawable {
+    private fun createLuminButtonBackground(): GradientDrawable {
         return GradientDrawable().apply {
             shape = GradientDrawable.RECTANGLE
-            cornerRadius = 20f
-            setColor(Color.parseColor("#4285F4"))
+            cornerRadius = 24f
+            setColor(Color.parseColor("#FF069E6E"))
+            setStroke(2, Color.parseColor("#80FFFFFF"))
         }
+    }
+    
+    /**
+     * 🌊 Cria efeito ripple
+     */
+    private fun createRippleEffect(): android.graphics.drawable.RippleDrawable {
+        return android.graphics.drawable.RippleDrawable(
+            android.content.res.ColorStateList.valueOf(Color.parseColor("#40FFFFFF")),
+            null,
+            null
+        )
     }
 
     /**
@@ -289,19 +315,35 @@ class AIResultsDialog @JvmOverloads constructor(
     }
 
     /**
-     * ✨ Mostra dialog com animação
+     * ✨ Mostra dialog com animação bounce elegante
      */
     private fun showWithAnimation() {
         visibility = View.VISIBLE
         
-        val scaleXAnimator = ObjectAnimator.ofFloat(this, "scaleX", 0.8f, 1f)
-        val scaleYAnimator = ObjectAnimator.ofFloat(this, "scaleY", 0.8f, 1f)
-        val alphaAnimator = ObjectAnimator.ofFloat(this, "alpha", 0f, 1f)
+        // 🎯 Animação em duas fases: bounce + settle
+        val bounceAnimator = AnimatorSet().apply {
+            playTogether(
+                ObjectAnimator.ofFloat(this@AIResultsDialog, "scaleX", 0.3f, BOUNCE_SCALE),
+                ObjectAnimator.ofFloat(this@AIResultsDialog, "scaleY", 0.3f, BOUNCE_SCALE),
+                ObjectAnimator.ofFloat(this@AIResultsDialog, "alpha", 0f, 1f),
+                ObjectAnimator.ofFloat(this@AIResultsDialog, "rotation", -5f, 2f)
+            )
+            duration = ANIMATION_DURATION / 2
+            interpolator = android.view.animation.OvershootInterpolator(1.2f)
+        }
+        
+        val settleAnimator = AnimatorSet().apply {
+            playTogether(
+                ObjectAnimator.ofFloat(this@AIResultsDialog, "scaleX", BOUNCE_SCALE, 1f),
+                ObjectAnimator.ofFloat(this@AIResultsDialog, "scaleY", BOUNCE_SCALE, 1f),
+                ObjectAnimator.ofFloat(this@AIResultsDialog, "rotation", 2f, 0f)
+            )
+            duration = ANIMATION_DURATION / 2
+            interpolator = DecelerateInterpolator()
+        }
         
         AnimatorSet().apply {
-            playTogether(scaleXAnimator, scaleYAnimator, alphaAnimator)
-            duration = ANIMATION_DURATION
-            interpolator = DecelerateInterpolator()
+            playSequentially(bounceAnimator, settleAnimator)
             start()
         }
     }

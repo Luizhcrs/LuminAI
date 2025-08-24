@@ -31,7 +31,9 @@ class AIDetectionService(private val context: Context) {
         private const val BASE_URL = "https://api.sightengine.com/1.0/check.json"
         private const val API_USER = "752671589"
         private const val API_SECRET = "Pjy6PESUoUQNYSEijwcZRMsvbHn5oSQG"
-        private const val TIMEOUT_SECONDS = 30L
+        private const val TIMEOUT_SECONDS = 20L // ⚡ Reduzido para melhor UX
+        private const val MAX_IMAGE_SIZE = 1024 // 📏 Máximo 1024px para otimização
+        private const val JPEG_QUALITY = 80 // 🎨 Qualidade otimizada
     }
 
     // 📊 Resultado da detecção
@@ -215,23 +217,33 @@ class AIDetectionService(private val context: Context) {
     }
 
     /**
-     * 🖼️ Converte Bitmap para ByteArray
+     * 🖼️ Converte Bitmap para ByteArray com otimização automática
      */
     private fun bitmapToByteArray(bitmap: Bitmap): ByteArray {
         val outputStream = ByteArrayOutputStream()
         
-        // Comprime para JPEG com qualidade otimizada
-        val quality = when {
-            bitmap.width * bitmap.height > 2000000 -> 70 // Imagens grandes
-            bitmap.width * bitmap.height > 500000 -> 80  // Imagens médias
-            else -> 90 // Imagens pequenas
+        // ⚡ Redimensiona se muito grande
+        val optimizedBitmap = if (bitmap.width > MAX_IMAGE_SIZE || bitmap.height > MAX_IMAGE_SIZE) {
+            val scale = MAX_IMAGE_SIZE.toFloat() / maxOf(bitmap.width, bitmap.height)
+            val newWidth = (bitmap.width * scale).toInt()
+            val newHeight = (bitmap.height * scale).toInt()
+            
+            Log.d(TAG, "📏 Redimensionando: ${bitmap.width}x${bitmap.height} → ${newWidth}x${newHeight}")
+            Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true)
+        } else {
+            bitmap
         }
         
-        bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream)
+        // 🎨 Comprime com qualidade otimizada
+        optimizedBitmap.compress(Bitmap.CompressFormat.JPEG, JPEG_QUALITY, outputStream)
         val byteArray = outputStream.toByteArray()
         
-        Log.d(TAG, "🖼️ Bitmap comprimido: ${byteArray.size} bytes (qualidade: $quality%)")
+        // 🧹 Libera bitmap temporário se foi criado
+        if (optimizedBitmap != bitmap) {
+            optimizedBitmap.recycle()
+        }
         
+        Log.d(TAG, "🖼️ Bitmap otimizado: ${byteArray.size} bytes")
         return byteArray
     }
 

@@ -21,7 +21,7 @@ class FloatingButtonService : Service() {
     
     companion object {
         private const val NOTIFICATION_ID = 1001
-        private const val CHANNEL_ID = "FloatingButtonChannel"
+        private const val CHANNEL_ID = "LuminChannel"
         private const val TAG = "FloatingButtonService"
     }
 
@@ -56,10 +56,10 @@ class FloatingButtonService : Service() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
                 val channel = NotificationChannel(
                     CHANNEL_ID,
-                    "Botão Flutuante",
+                    "Lumin",
                     NotificationManager.IMPORTANCE_LOW
                 ).apply {
-                    description = "Serviço do botão flutuante em execução"
+                    description = "Lumin - Análise inteligente de imagens"
                     setShowBadge(false)
                 }
                 
@@ -88,8 +88,8 @@ class FloatingButtonService : Service() {
             )
 
             val notification = NotificationCompat.Builder(this, CHANNEL_ID)
-                .setContentTitle("Botão Flutuante Ativo")
-                .setContentText("Toque para abrir o app")
+                .setContentTitle("Lumin Ativo")
+                .setContentText("Compartilhe imagens para análise inteligente")
                 .setSmallIcon(android.R.drawable.ic_dialog_info)
                 .setContentIntent(pendingIntent)
                 .setOngoing(true)
@@ -110,7 +110,7 @@ class FloatingButtonService : Service() {
             Log.d(TAG, "setupFloatingButton: Verificando permissão de sobreposição...")
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
                 Log.w(TAG, "setupFloatingButton: Permissão de sobreposição foi revogada!")
-                Toast.makeText(this, "Permissão de sobreposição foi revogada!", Toast.LENGTH_LONG).show()
+                // 🔇 Permissão revogada - silencioso
                 stopSelf()
                 return
             }
@@ -158,19 +158,19 @@ class FloatingButtonService : Service() {
                 setupButtonBehavior()
                 Log.d(TAG, "setupFloatingButton: Comportamento configurado com sucesso")
                 
-                Toast.makeText(this, "Botão flutuante criado com sucesso!", Toast.LENGTH_SHORT).show()
+                // 🔇 Botão criado silenciosamente
                 Log.d(TAG, "setupFloatingButton: Botão flutuante criado com sucesso!")
                 
             } catch (e: Exception) {
                 Log.e(TAG, "setupFloatingButton: Erro ao adicionar botão à tela: ${e.message}", e)
-                Toast.makeText(this, "Erro ao adicionar botão à tela: ${e.message}", Toast.LENGTH_LONG).show()
+                // 🔇 Erro silencioso
                 e.printStackTrace()
                 stopSelf()
             }
             
         } catch (e: Exception) {
             Log.e(TAG, "setupFloatingButton: Erro ao criar botão flutuante: ${e.message}", e)
-            Toast.makeText(this, "Erro ao criar botão flutuante: ${e.message}", Toast.LENGTH_LONG).show()
+            // 🔇 Erro silencioso
             e.printStackTrace()
             stopSelf()
         }
@@ -182,12 +182,12 @@ class FloatingButtonService : Service() {
         // Listener para clique no botão com timeout
         floatingButton.setOnClickListener {
             try {
-                Toast.makeText(this, "Capturando tela...", Toast.LENGTH_SHORT).show()
+                // Captura silenciosa
                 // Captura a tela
                 captureScreen()
             } catch (e: Exception) {
                 Log.e(TAG, "Erro ao capturar tela: ${e.message}", e)
-                Toast.makeText(this, "Erro ao capturar tela: ${e.message}", Toast.LENGTH_LONG).show()
+                // 🔇 Erro silencioso
             }
         }
 
@@ -275,9 +275,7 @@ class FloatingButtonService : Service() {
         try {
             Log.d(TAG, "captureScreen: Iniciando captura de tela...")
             
-            // Cria um nome único para o arquivo
-            val timestamp = System.currentTimeMillis()
-            val fileName = "screenshot_$timestamp.png"
+            // Inicia captura via ScreenCaptureActivity
             
             // Captura a tela usando MediaProjection (requer permissão)
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -308,7 +306,7 @@ class FloatingButtonService : Service() {
             
         } catch (e: Exception) {
             Log.e(TAG, "requestScreenCapturePermission: Erro: ${e.message}", e)
-            Toast.makeText(this, "Erro ao solicitar permissão: ${e.message}", Toast.LENGTH_LONG).show()
+            // 🔇 Erro silencioso
         }
     }
     
@@ -318,7 +316,7 @@ class FloatingButtonService : Service() {
             
             // Método alternativo para versões mais antigas
             // Pode não funcionar em todas as versões
-            Toast.makeText(this, "Captura de tela não suportada nesta versão", Toast.LENGTH_LONG).show()
+            // 🔇 Versão não suportada - silencioso
             
         } catch (e: Exception) {
             Log.e(TAG, "captureScreenLegacy: Erro: ${e.message}", e)
@@ -334,10 +332,10 @@ class FloatingButtonService : Service() {
                 Log.d(TAG, "onDestroy: Removendo view da janela...")
                 windowManager.removeView(floatingButtonView)
                 Log.d(TAG, "onDestroy: View removida com sucesso")
-                Toast.makeText(this, "Botão flutuante removido", Toast.LENGTH_SHORT).show()
+                // Remoção silenciosa
             } catch (e: Exception) {
                 Log.e(TAG, "onDestroy: Erro ao remover botão: ${e.message}", e)
-                Toast.makeText(this, "Erro ao remover botão: ${e.message}", Toast.LENGTH_SHORT).show()
+                // 🔇 Erro silencioso
                 e.printStackTrace()
             }
         } else {

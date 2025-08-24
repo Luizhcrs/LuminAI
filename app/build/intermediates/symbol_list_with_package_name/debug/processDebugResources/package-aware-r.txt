@@ -3022,6 +3022,7 @@ drawable abc_textfield_search_activated_mtrl_alpha
 drawable abc_textfield_search_default_mtrl_alpha
 drawable abc_textfield_search_material
 drawable abc_vector_test
+drawable app_background_gradient
 drawable avd_hide_password
 drawable avd_show_password
 drawable btn_checkbox_checked_mtrl
@@ -3071,6 +3072,7 @@ drawable ic_clear_black_24
 drawable ic_clock_black_24dp
 drawable ic_floating_button
 drawable ic_keyboard_black_24dp
+drawable ic_lumin_app_icon
 drawable ic_m3_chip_check
 drawable ic_m3_chip_checked_circle
 drawable ic_m3_chip_close
@@ -3079,6 +3081,11 @@ drawable ic_mtrl_chip_checked_black
 drawable ic_mtrl_chip_checked_circle
 drawable ic_mtrl_chip_close_circle
 drawable ic_search_black_24
+drawable lumin_instruction_card
+drawable lumin_logo_background
+drawable lumin_outline_button
+drawable lumin_primary_button
+drawable lumin_secondary_button
 drawable m3_avd_hide_password
 drawable m3_avd_show_password
 drawable m3_bottom_sheet_drag_handle
@@ -3100,6 +3107,7 @@ drawable material_ic_keyboard_arrow_previous_black_24dp
 drawable material_ic_keyboard_arrow_right_black_24dp
 drawable material_ic_menu_arrow_down_black_24dp
 drawable material_ic_menu_arrow_up_black_24dp
+drawable modern_button_background
 drawable mtrl_bottomsheet_drag_handle
 drawable mtrl_checkbox_button
 drawable mtrl_checkbox_button_checked_unchecked
@@ -3262,11 +3270,6 @@ id bounceBoth
 id bounceEnd
 id bounceStart
 id btnCheckPermission
-id btnClear
-id btnClose
-id btnCrop
-id btnSave
-id btnShare
 id btnStartService
 id btnStopService
 id buttonPanel
@@ -3370,9 +3373,7 @@ id floating
 id floating_button
 id forever
 id fragment_container_view_tag
-id freeDrawCropView
 id frost
-id fullscreenImageView
 id fullscreen_header
 id ghost_view
 id ghost_view_holder
@@ -3796,7 +3797,6 @@ layout abc_search_dropdown_item_icons_2line
 layout abc_search_view
 layout abc_select_dialog_material
 layout abc_tooltip
-layout activity_image_viewer
 layout activity_main
 layout custom_dialog
 layout design_bottom_navigation_item
@@ -4626,7 +4626,7 @@ style Theme_Design_Light
 style Theme_Design_Light_BottomSheetDialog
 style Theme_Design_Light_NoActionBar
 style Theme_Design_NoActionBar
-style Theme_FloatingButton
+style Theme_Lumin
 style Theme_Material3_Dark
 style Theme_Material3_Dark_BottomSheetDialog
 style Theme_Material3_Dark_Dialog

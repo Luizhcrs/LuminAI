@@ -1,14 +1,18 @@
 [
     {
-        "merged": "com.example.floatingbutton.app-mergeDebugResources-43:/layout/activity_image_viewer.xml",
-        "source": "com.example.floatingbutton.app-main-46:/layout/activity_image_viewer.xml"
+        "merged": "C:\\Users\\GB4\\.gradle\\daemon\\8.9\\com.example.floatingbutton.app-mergeDebugResources-43:\\layout\\activity_image_viewer.xml",
+        "source": "C:\\Users\\GB4\\.gradle\\daemon\\8.9\\com.example.floatingbutton.app-main-46:\\layout\\activity_image_viewer.xml"
     },
     {
         "merged": "com.example.floatingbutton.app-mergeDebugResources-43:/layout/activity_main.xml",
         "source": "com.example.floatingbutton.app-main-46:/layout/activity_main.xml"
     },
     {
-        "merged": "com.example.floatingbutton.app-mergeDebugResources-43:/layout/floating_button_layout.xml",
-        "source": "com.example.floatingbutton.app-main-46:/layout/floating_button_layout.xml"
+        "merged": "C:\\Users\\GB4\\.gradle\\daemon\\8.9\\com.example.floatingbutton.app-mergeDebugResources-43:\\layout\\activity_main.xml",
+        "source": "C:\\Users\\GB4\\.gradle\\daemon\\8.9\\com.example.floatingbutton.app-main-46:\\layout\\activity_main.xml"
+    },
+    {
+        "merged": "C:\\Users\\GB4\\.gradle\\daemon\\8.9\\com.example.floatingbutton.app-mergeDebugResources-43:\\layout\\floating_button_layout.xml",
+        "source": "C:\\Users\\GB4\\.gradle\\daemon\\8.9\\com.example.floatingbutton.app-main-46:\\layout\\floating_button_layout.xml"
     }
 ]

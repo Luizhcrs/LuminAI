@@ -11,11 +11,18 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.app.ActivityCompat
 import androidx.core.content.ContextCompat
-import com.example.floatingbutton.databinding.ActivityMainBinding
+import android.widget.Button
+import android.widget.TextView
+import android.widget.ImageView
 
 class MainActivity : AppCompatActivity() {
     
-    private lateinit var binding: ActivityMainBinding
+    private lateinit var tvPermissionStatus: TextView
+    private lateinit var btnStartService: Button
+    private lateinit var btnStopService: Button
+    private lateinit var btnCheckPermission: Button
+    private lateinit var imageView: ImageView
+    private lateinit var tvImageStatus: TextView
     
     companion object {
         private const val TAG = "MainActivity"
@@ -28,10 +35,10 @@ class MainActivity : AppCompatActivity() {
         // Verifica se a permissão foi concedida
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (Settings.canDrawOverlays(this)) {
-                Toast.makeText(this, "Permissão concedida! Agora você pode iniciar o serviço.", Toast.LENGTH_LONG).show()
+                // 🔇 Permissão concedida silenciosamente
                 checkOverlayPermission()
             } else {
-                Toast.makeText(this, "Permissão negada. O botão flutuante não funcionará.", Toast.LENGTH_LONG).show()
+                // 🔇 Permissão negada silenciosamente
                 checkOverlayPermission()
             }
         }
@@ -41,18 +48,17 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         Log.d(TAG, "onCreate: Iniciando MainActivity...")
         try {
-            binding = ActivityMainBinding.inflate(layoutInflater)
-            setContentView(binding.root)
-            Log.d(TAG, "onCreate: Layout configurado com sucesso")
+            setContentView(R.layout.activity_main)
+            
+            // Inicializa views
+            initViews()
             
             setupUI()
-            Log.d(TAG, "onCreate: UI configurada")
             
-            // NOVO: Verifica se recebeu uma imagem compartilhada
+            // Verifica se recebeu uma imagem compartilhada
             handleSharedImage(intent)
             
             checkOverlayPermission()
-            Log.d(TAG, "onCreate: Permissão verificada")
         } catch (e: Exception) {
             Log.e(TAG, "onCreate: Erro crítico: ${e.message}", e)
         }
@@ -89,8 +95,7 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "displaySharedImage: Exibindo imagem compartilhada...")
             
             // Exibe a imagem na ImageView
-            val imageView = binding.imageView
-            val tvImageStatus = binding.tvImageStatus
+            // Views já inicializadas em initViews()
             
             if (imageView != null) {
                 imageView.setImageURI(imageUri)
@@ -98,19 +103,19 @@ class MainActivity : AppCompatActivity() {
                 tvImageStatus?.setTextColor(getColor(R.color.success_text))
                 
                 Log.d(TAG, "displaySharedImage: Imagem exibida com sucesso!")
-                Toast.makeText(this, "Imagem recebida com sucesso!", Toast.LENGTH_LONG).show()
+                // 🔇 Imagem processada silenciosamente
                 
                 // NOVO: Abre a ImageViewerActivity em fullscreen
                 openImageViewer(imageUri)
                 
             } else {
                 Log.w(TAG, "displaySharedImage: ImageView não encontrada no layout!")
-                Toast.makeText(this, "Imagem recebida, mas não há onde exibir!", Toast.LENGTH_LONG).show()
+                // 🔇 Erro silencioso
             }
             
         } catch (e: Exception) {
             Log.e(TAG, "displaySharedImage: Erro ao exibir imagem: ${e.message}", e)
-            Toast.makeText(this, "Erro ao exibir imagem: ${e.message}", Toast.LENGTH_LONG).show()
+            // 🔇 Erro silencioso
         }
     }
     
@@ -127,24 +132,35 @@ class MainActivity : AppCompatActivity() {
             
         } catch (e: Exception) {
             Log.e(TAG, "openImageViewer: Erro ao abrir visualizador: ${e.message}", e)
-            Toast.makeText(this, "Erro ao abrir visualizador: ${e.message}", Toast.LENGTH_SHORT).show()
+            // 🔇 Erro silencioso
         }
     }
     
+    private fun initViews() {
+        tvPermissionStatus = findViewById(R.id.tvPermissionStatus)
+        btnStartService = findViewById(R.id.btnStartService)
+        btnStopService = findViewById(R.id.btnStopService)
+        btnCheckPermission = findViewById(R.id.btnCheckPermission)
+        imageView = findViewById(R.id.imageView)
+        tvImageStatus = findViewById(R.id.tvImageStatus)
+    }
+    
     private fun setupUI() {
-        binding.btnStartService.setOnClickListener {
+        btnStartService.setOnClickListener {
             if (Settings.canDrawOverlays(this)) {
                 startFloatingButtonService()
+                // 🔇 Lumin ativado silenciosamente
             } else {
                 requestOverlayPermission()
             }
         }
         
-        binding.btnStopService.setOnClickListener {
+        btnStopService.setOnClickListener {
             stopFloatingButtonService()
+            // 🔇 Lumin desativado silenciosamente
         }
         
-        binding.btnCheckPermission.setOnClickListener {
+        btnCheckPermission.setOnClickListener {
             checkOverlayPermission()
         }
     }
@@ -152,18 +168,18 @@ class MainActivity : AppCompatActivity() {
     private fun checkOverlayPermission() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (Settings.canDrawOverlays(this)) {
-                binding.tvPermissionStatus.text = "✅ Permissão concedida"
-                binding.btnStartService.isEnabled = true
-                binding.btnStopService.isEnabled = true
+                tvPermissionStatus.text = "✅ Lumin pronto para usar"
+                btnStartService.isEnabled = true
+                btnStopService.isEnabled = true
             } else {
-                binding.tvPermissionStatus.text = "❌ Permissão negada"
-                binding.btnStartService.isEnabled = false
-                binding.btnStopService.isEnabled = false
+                tvPermissionStatus.text = "⚠️ Permissão de sobreposição necessária"
+                btnStartService.isEnabled = false
+                btnStopService.isEnabled = false
             }
         } else {
-            binding.tvPermissionStatus.text = "✅ Permissão automática (Android < 6.0)"
-            binding.btnStartService.isEnabled = true
-            binding.btnStopService.isEnabled = true
+            tvPermissionStatus.text = "✅ Lumin pronto para usar"
+            btnStartService.isEnabled = true
+            btnStopService.isEnabled = true
         }
     }
     
@@ -184,7 +200,7 @@ class MainActivity : AppCompatActivity() {
             Log.d(TAG, "startFloatingButtonService: Verificando permissão...")
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && !Settings.canDrawOverlays(this)) {
                 Log.w(TAG, "startFloatingButtonService: Permissão de sobreposição necessária!")
-                Toast.makeText(this, "Permissão de sobreposição necessária!", Toast.LENGTH_LONG).show()
+                // 🔇 Permissão necessária - silencioso
                 requestOverlayPermission()
                 return
             }
@@ -202,10 +218,10 @@ class MainActivity : AppCompatActivity() {
                 startService(serviceIntent)
             }
             Log.d(TAG, "startFloatingButtonService: Serviço iniciado com sucesso")
-            Toast.makeText(this, "Serviço iniciado! O botão flutuante deve aparecer.", Toast.LENGTH_SHORT).show()
+            // 🔇 Serviço iniciado silenciosamente
         } catch (e: Exception) {
             Log.e(TAG, "startFloatingButtonService: Erro ao iniciar serviço: ${e.message}", e)
-            Toast.makeText(this, "Erro ao iniciar serviço: ${e.message}", Toast.LENGTH_LONG).show()
+            // 🔇 Erro silencioso
             e.printStackTrace()
         }
     }
@@ -213,11 +229,13 @@ class MainActivity : AppCompatActivity() {
     private fun stopFloatingButtonService() {
         val serviceIntent = Intent(this, FloatingButtonService::class.java)
         stopService(serviceIntent)
-        Toast.makeText(this, "Serviço parado! O botão flutuante foi removido.", Toast.LENGTH_SHORT).show()
+        // 🔇 Serviço parado silenciosamente
     }
     
     override fun onResume() {
         super.onResume()
         checkOverlayPermission()
     }
+    
+    // 🔇 Função showToast removida - operação silenciosa
 }

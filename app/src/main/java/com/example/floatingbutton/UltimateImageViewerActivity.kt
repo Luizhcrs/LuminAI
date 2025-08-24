@@ -2,20 +2,27 @@ package com.example.floatingbutton
 
 import android.app.Activity
 import android.content.Intent
+import android.animation.ObjectAnimator
 import android.graphics.*
 import android.net.Uri
 import android.os.Bundle
+import android.os.Environment
 import android.util.Log
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
+import android.view.animation.DecelerateInterpolator
 import android.widget.FrameLayout
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.core.content.FileProvider
-import com.example.floatingbutton.ui.SmartRectangleDrawingView
+// SmartRectangleDrawingView removido - substituído por ElegantSelectionView
+import com.example.floatingbutton.ui.MagicalBrushView
+import com.example.floatingbutton.ui.ElegantSelectionView
 import com.example.floatingbutton.ui.LiveOCROverlay
 import com.example.floatingbutton.ui.FloatingActionMenu
 import com.example.floatingbutton.ui.AIResultsDialog
+import com.example.floatingbutton.ui.MinimalImageView
 import com.example.floatingbutton.ai.SmartSelectionEngine
 import com.example.floatingbutton.ai.AIDetectionService
 import kotlinx.coroutines.*
@@ -44,8 +51,9 @@ class UltimateImageViewerActivity : Activity() {
 
     // 🖼️ Views principais
     private lateinit var mainContainer: FrameLayout
-    private lateinit var imageView: ImageView
-    private lateinit var smartDrawingView: SmartRectangleDrawingView
+    private lateinit var imageView: MinimalImageView
+    private lateinit var magicalBrushView: MagicalBrushView
+    private lateinit var elegantSelectionView: ElegantSelectionView
     private lateinit var ocrOverlay: LiveOCROverlay
     private lateinit var actionMenu: FloatingActionMenu
     private lateinit var aiResultsDialog: AIResultsDialog
@@ -61,9 +69,9 @@ class UltimateImageViewerActivity : Activity() {
     private var aiAnalysisJob: Job? = null
 
     // 🎯 Estados
-    private var currentMode = ViewMode.DRAWING
+    private var currentMode = ViewMode.MAGICAL_DRAWING
     
-    enum class ViewMode { DRAWING, OCR_ACTIVE, MENU_VISIBLE }
+    enum class ViewMode { MAGICAL_DRAWING, SMART_SELECTION, OCR_ACTIVE, MENU_VISIBLE }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -75,6 +83,9 @@ class UltimateImageViewerActivity : Activity() {
         setupInteractions()
         initializeAI()
         
+        // 🖌️ Inicia no modo de pincel mágico
+        enterMagicalDrawingMode()
+        
         showWelcomeHint()
     }
 
@@ -82,30 +93,68 @@ class UltimateImageViewerActivity : Activity() {
      * 🎨 Configura as views com layout moderno
      */
     private fun setupViews() {
-        // Container principal com fundo elegante
+        // 🌌 Container principal com gradiente elegante
         mainContainer = FrameLayout(this).apply {
             layoutParams = ViewGroup.LayoutParams(
                 ViewGroup.LayoutParams.MATCH_PARENT,
                 ViewGroup.LayoutParams.MATCH_PARENT
             )
-            setBackgroundColor(Color.BLACK)
+            setBackgroundResource(com.example.floatingbutton.R.drawable.app_background_gradient)
         }
 
-        // ImageView para a imagem de fundo
-        imageView = ImageView(this).apply {
+        // 🎨 Minimal ImageView com efeitos sutis nos cantos
+        imageView = MinimalImageView(this).apply {
             layoutParams = FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT
             )
             scaleType = ImageView.ScaleType.FIT_CENTER
+            // 🌟 Inicia com estado normal minimalista
+            showNormal()
+            // 🔥 Força redesenho das bordas
+            post { 
+                invalidate()
+                Log.d(TAG, "🎨 MinimalImageView forçado a redesenhar bordas")
+            }
         }
 
-        // Smart Drawing View (desenho que vira retângulo)
-        smartDrawingView = SmartRectangleDrawingView(this).apply {
+        // 🚫 SmartDrawingView removido - substituído por ElegantSelectionView
+
+        // 🖌️ Magical Brush View (pincel com efeitos visuais)
+        magicalBrushView = MagicalBrushView(this).apply {
             layoutParams = FrameLayout.LayoutParams(
                 FrameLayout.LayoutParams.MATCH_PARENT,
                 FrameLayout.LayoutParams.MATCH_PARENT
             )
+            visibility = View.GONE
+            
+            // 📞 Callback quando desenho é concluído
+            onDrawingCompleted = { points ->
+                handleDrawingCompleted(points)
+            }
+        }
+
+        // 🎨 Elegant Selection View (retângulo redimensionável)
+        elegantSelectionView = ElegantSelectionView(this).apply {
+            layoutParams = FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
+            )
+            visibility = View.GONE
+            
+            // 📞 Callbacks para redimensionamento
+            onSelectionChanged = { rect ->
+                selectedRegion = rect
+                // 🎯 Converte coordenadas para o ImageView
+                val imageRect = convertToImageCoordinates(rect)
+                imageView.setSelectionHighlight(imageRect)
+                updateActionMenuPosition(rect)
+            }
+            
+            onSelectionCompleted = { rect ->
+                selectedRegion = rect
+                actionMenu.showMenu()
+            }
         }
 
         // Live OCR Overlay (texto selecionável)
@@ -140,14 +189,15 @@ class UltimateImageViewerActivity : Activity() {
 
         // Monta a hierarquia (ordem importa para eventos de toque)
         mainContainer.addView(imageView)
-        mainContainer.addView(smartDrawingView)
+        mainContainer.addView(magicalBrushView) // 🖌️ Pincel mágico
+        mainContainer.addView(elegantSelectionView) // 🎨 Seleção elegante redimensionável
         mainContainer.addView(ocrOverlay)
         mainContainer.addView(actionMenu)
         mainContainer.addView(aiResultsDialog)
         
         setContentView(mainContainer)
         
-        Log.d(TAG, "✅ Views configuradas com layout elegante")
+        // Views configuradas
     }
 
     /**
@@ -167,7 +217,28 @@ class UltimateImageViewerActivity : Activity() {
                 originalBitmap = BitmapFactory.decodeStream(inputStream)
                 imageView.setImageBitmap(originalBitmap)
                 
-                Log.d(TAG, "✅ Imagem carregada: ${originalBitmap?.width}x${originalBitmap?.height}")
+                // 🎨 Ativa efeitos minimalistas com animação suave
+                imageView.alpha = 0f
+                imageView.scaleX = 0.95f
+                imageView.scaleY = 0.95f
+                imageView.showNormal()
+                
+                // 🔥 Força redesenho da moldura após carregar imagem
+                imageView.post {
+                    imageView.forceBorderRedraw()
+                    Log.d(TAG, "🖼️ Imagem carregada, forçando moldura")
+                }
+                
+                // ✨ Animação de entrada mais sutil
+                imageView.animate()
+                    .alpha(1f)
+                    .scaleX(1f)
+                    .scaleY(1f)
+                    .setDuration(400)
+                    .setInterpolator(DecelerateInterpolator())
+                    .start()
+                
+                // Imagem carregada
             }
         } catch (e: Exception) {
             Log.e(TAG, "❌ Erro ao carregar imagem: ${e.message}", e)
@@ -179,41 +250,11 @@ class UltimateImageViewerActivity : Activity() {
      * 🎯 Configura todas as interações
      */
     private fun setupInteractions() {
-        setupDrawingInteractions()
         setupOCRInteractions()
         setupMenuInteractions()
     }
 
-    /**
-     * 🎨 Configura interações de desenho
-     */
-    private fun setupDrawingInteractions() {
-        smartDrawingView.setOnDrawingStartListener {
-            Log.d(TAG, "🎨 Usuário começou a desenhar")
-            hideMenuAndOCR()
-            currentMode = ViewMode.DRAWING
-        }
-
-        smartDrawingView.setOnRectangleDetectedListener { rect ->
-            Log.d(TAG, "🔲 Retângulo detectado: $rect")
-            selectedRegion = rect
-            
-            // Feedback visual
-            showToast("🔲 Área retangular detectada!")
-        }
-
-        smartDrawingView.setOnSelectionCompleteListener { rect ->
-            Log.d(TAG, "✅ Seleção completa: $rect")
-            selectedRegion = rect
-            
-            // Mostra menu de ações
-            showActionMenu()
-            currentMode = ViewMode.MENU_VISIBLE
-            
-            // Inicia análise inteligente em background
-            performIntelligentAnalysis(rect)
-        }
-    }
+    // 🚫 setupDrawingInteractions removida - agora usamos MagicalBrushView + ElegantSelectionView
 
     /**
      * 📝 Configura interações de OCR
@@ -227,14 +268,14 @@ class UltimateImageViewerActivity : Activity() {
             }
             
             Log.d(TAG, "📝 Texto selecionado ($modeText): $text")
-            showToast("📝 $modeText selecionada: \"${text.take(30)}...\"")
+            // 🔇 Texto selecionado silenciosamente
         }
 
         ocrOverlay.setOnOCRCompleteListener { textBlocks ->
             Log.d(TAG, "🤖 OCR completo: ${textBlocks.size} blocos detectados")
             
             val totalText = textBlocks.sumOf { it.text.length }
-            showToast("📝 OCR concluído! $totalText caracteres detectados")
+            // 🔇 OCR concluído silenciosamente
             
             // Mostra instruções de uso
             showOCRInstructions()
@@ -249,13 +290,12 @@ class UltimateImageViewerActivity : Activity() {
             when (action) {
                 FloatingActionMenu.Action.OCR -> {
                     activateOCR()
+                    currentMode = ViewMode.OCR_ACTIVE
                 }
                 FloatingActionMenu.Action.SAVE_AREA -> {
                     saveSelectedArea()
                 }
-                FloatingActionMenu.Action.CROP -> {
-                    cropToSelectedArea()
-                }
+                // 🗑️ Botão CROP removido
                 FloatingActionMenu.Action.SEARCH -> {
                     searchSelectedContent()
                 }
@@ -263,7 +303,9 @@ class UltimateImageViewerActivity : Activity() {
                     performAIScan()
                 }
                 FloatingActionMenu.Action.CLOSE -> {
-                    resetToDrawingMode()
+                    // 🔄 Volta ao pincel sem bugs
+                    actionMenu.hideMenu()
+                    enterMagicalDrawingMode()
                 }
             }
         }
@@ -292,7 +334,7 @@ class UltimateImageViewerActivity : Activity() {
      * 💡 Mostra dica de boas-vindas
      */
     private fun showWelcomeHint() {
-        showToast("✨ Desenhe livremente ao redor da área que deseja selecionar")
+        // 🔇 Boas-vindas silenciosas
     }
 
     /**
@@ -307,13 +349,124 @@ class UltimateImageViewerActivity : Activity() {
         // Esconde menu e mostra OCR overlay
         actionMenu.hideMenu()
         ocrOverlay.visibility = View.VISIBLE
-        smartDrawingView.visibility = View.GONE
+        // smartDrawingView removido
         
         currentMode = ViewMode.OCR_ACTIVE
         
         // Executa OCR
-        showToast("🤖 Executando OCR...")
+        // 🔇 OCR executando silenciosamente
         ocrOverlay.performOCR(bitmap, region)
+    }
+
+    /**
+     * 🖌️ Processa desenho concluído do pincel mágico
+     */
+    private fun handleDrawingCompleted(points: List<PointF>) {
+        Log.d(TAG, "🖌️ handleDrawingCompleted chamado com ${points.size} pontos")
+        
+        if (points.size < 3) {
+            Log.w(TAG, "⚠️ Poucos pontos para criar seleção: ${points.size}")
+            return
+        }
+        
+        // 🔄 Converte pontos livres em retângulo elegante
+        val bounds = calculateBounds(points)
+        selectedRegion = bounds
+        
+        Log.d(TAG, "📐 Bounds calculados: $bounds")
+        
+        // 🎨 Esconde pincel e mostra seleção elegante
+        magicalBrushView.visibility = View.GONE
+        elegantSelectionView.setSelection(bounds)
+        imageView.setSelectionHighlight(bounds) // 🌑 Ativa destaque
+        currentMode = ViewMode.SMART_SELECTION
+        
+        // 🎯 Mostra menu de ações
+        actionMenu.showMenu()
+        
+        // Seleção ativada
+    }
+    
+    /**
+     * 📐 Calcula bounds dos pontos
+     */
+    private fun calculateBounds(points: List<PointF>): RectF {
+        if (points.isEmpty()) return RectF()
+        
+        var minX = Float.MAX_VALUE
+        var maxX = Float.MIN_VALUE
+        var minY = Float.MAX_VALUE
+        var maxY = Float.MIN_VALUE
+        
+        points.forEach { point ->
+            minX = minOf(minX, point.x)
+            maxX = maxOf(maxX, point.x)
+            minY = minOf(minY, point.y)
+            maxY = maxOf(maxY, point.y)
+        }
+        
+        // 📏 Adiciona margem
+        val margin = 20f
+        return RectF(
+            maxOf(0f, minX - margin),
+            maxOf(0f, minY - margin),
+            minOf(magicalBrushView.width.toFloat(), maxX + margin),
+            minOf(magicalBrushView.height.toFloat(), maxY + margin)
+        )
+    }
+
+    /**
+     * 🖌️ Entra no modo de desenho mágico
+     */
+    private fun enterMagicalDrawingMode() {
+        currentMode = ViewMode.MAGICAL_DRAWING
+        
+        // 🎨 Mostra apenas o pincel mágico
+        magicalBrushView.visibility = View.VISIBLE
+        // smartDrawingView removido
+        elegantSelectionView.visibility = View.GONE
+        ocrOverlay.visibility = View.GONE
+        actionMenu.hideMenu()
+        
+        // 🧹 Limpa TUDO para começar fresh
+        selectedRegion = null
+        magicalBrushView.clearDrawing()
+        // smartDrawingView removido
+        elegantSelectionView.clearSelection()
+        imageView.clearSelectionHighlight() // 🌑 Remove destaque
+        
+        // 🎯 Configura clique fora para reset
+        setupOutsideClickReset()
+        
+        Log.d(TAG, "🖌️ Modo pincel mágico ativado - sempre funcional")
+    }
+    
+    /**
+     * 🎯 Configura reset ao clicar fora da área
+     */
+    private fun setupOutsideClickReset() {
+        mainContainer.setOnClickListener { 
+            // 🎨 Sempre permite nova seleção
+            when (currentMode) {
+                ViewMode.SMART_SELECTION -> {
+                    // Se tem seleção ativa, permite nova
+                    enterMagicalDrawingMode()
+                    // 🔇 Removido toast desnecessário
+                }
+                ViewMode.MENU_VISIBLE -> {
+                    // Esconde menu e volta ao pincel
+                    enterMagicalDrawingMode()
+                }
+                ViewMode.OCR_ACTIVE -> {
+                    // Sai do OCR e volta ao pincel
+                    enterMagicalDrawingMode()
+                }
+                else -> {
+                    // Já está no modo pincel, só limpa
+                    magicalBrushView.clearDrawing()
+                }
+            }
+        }
     }
 
     /**
@@ -325,20 +478,16 @@ class UltimateImageViewerActivity : Activity() {
         aiAnalysisJob?.cancel()
         aiAnalysisJob = CoroutineScope(Dispatchers.Main).launch {
             try {
-                showToast("🤖 Analisando área selecionada...")
+                // 🔇 Análise silenciosa - sem toast
                 
                 withContext(Dispatchers.Default) {
                     // Simula análise (substitua pela IA real)
-                    delay(1000)
+                    delay(300) // ⚡ Análise mais rápida
                     
                     withContext(Dispatchers.Main) {
                         // Simula resultados
                         val hasText = region.width() > 200 && region.height() > 50
-                        if (hasText) {
-                            showToast("📝 Texto detectado! Use OCR para extrair")
-                        } else {
-                            showToast("🖼️ Área de imagem selecionada")
-                        }
+                        // 🔇 Análise silenciosa - resultados mostrados apenas no menu
                     }
                 }
                 
@@ -349,24 +498,42 @@ class UltimateImageViewerActivity : Activity() {
     }
 
     /**
-     * 🖼️ Salva área selecionada
+     * 🖼️ Salva área selecionada com qualidade otimizada
      */
     private fun saveSelectedArea() {
-        val region = selectedRegion ?: return
-        val bitmap = originalBitmap ?: return
+        val region = selectedRegion ?: run {
+            // 🔇 Área não selecionada - silencioso
+            return
+        }
+        val bitmap = originalBitmap ?: run {
+            // 🔇 Imagem não carregada - silencioso
+            return
+        }
         
         CoroutineScope(Dispatchers.IO).launch {
             try {
+                // 🎯 Recorta com margem para melhor qualidade
                 val croppedBitmap = cropBitmapToRegion(bitmap, region)
-                val savedFile = saveBitmapToFile(croppedBitmap)
+                
+                // 🎨 Otimiza qualidade da imagem
+                val optimizedBitmap = optimizeBitmapQuality(croppedBitmap)
+                
+                // 💾 Salva com nome descritivo
+                val savedFile = saveBitmapToFile(optimizedBitmap, "lumin_selection")
+                
+                // 🧹 Libera memória
+                if (croppedBitmap != optimizedBitmap) {
+                    croppedBitmap.recycle()
+                }
+                optimizedBitmap.recycle()
                 
                 withContext(Dispatchers.Main) {
-                    showToast("✅ Área salva: ${savedFile.name}")
+                    // 🔇 Área salva silenciosamente
                 }
                 
             } catch (e: Exception) {
                 withContext(Dispatchers.Main) {
-                    showToast("❌ Erro ao salvar área")
+                    // 🔇 Erro ao salvar - silencioso
                 }
             }
         }
@@ -384,11 +551,11 @@ class UltimateImageViewerActivity : Activity() {
             imageView.setImageBitmap(croppedBitmap)
             originalBitmap = croppedBitmap
             
-            resetToDrawingMode()
-            showToast("✂️ Imagem recortada com sucesso!")
+            enterMagicalDrawingMode()
+            // 🔇 Imagem recortada silenciosamente
             
         } catch (e: Exception) {
-            showToast("❌ Erro ao recortar imagem")
+            // 🔇 Erro ao recortar - silencioso
         }
     }
 
@@ -396,7 +563,7 @@ class UltimateImageViewerActivity : Activity() {
      * 🔍 Pesquisa conteúdo selecionado
      */
     private fun searchSelectedContent() {
-        showToast("🔍 Funcionalidade de pesquisa em desenvolvimento")
+        // 🔇 Pesquisa em desenvolvimento - silencioso
         // TODO: Implementar pesquisa
     }
 
@@ -408,11 +575,14 @@ class UltimateImageViewerActivity : Activity() {
         val bitmap = originalBitmap
         
         if (region == null || bitmap == null) {
-            showToast("❌ Nenhuma área selecionada")
+            // 🔇 Área não selecionada - silencioso
             return
         }
 
         Log.d(TAG, "🤖 Iniciando scan de IA para região: $region")
+        
+        // 🎨 Ativa estado visual de processamento minimalista
+        imageView.showProcessing()
         
         // Esconde menu
         actionMenu.hideMenu()
@@ -425,50 +595,142 @@ class UltimateImageViewerActivity : Activity() {
                 
                 // Executa detecção de IA
                 val result = aiDetectionService.detectAIGenerated(croppedBitmap) { progress ->
-                    showToast(progress)
+                    // 🔇 Progresso silencioso
                 }
                 
                 result.fold(
                     onSuccess = { aiResult ->
-                        Log.d(TAG, "✅ Scan de IA concluído: ${aiResult.confidencePercentage}%")
+                        // Scan de IA concluído
+                        
+                        // 🎉 Ativa estado visual de sucesso
+                        imageView.showSuccess()
                         
                         // Mostra resultados no dialog elegante
                         aiResultsDialog.showResults(aiResult)
+                        
+                        // 🔄 Volta ao normal após 2 segundos (mais rápido)
+                        launch {
+                            delay(2000)
+                            imageView.showNormal()
+                        }
                     },
                     onFailure = { error ->
                         Log.e(TAG, "❌ Erro no scan de IA: ${error.message}", error)
-                        showToast("❌ Erro na detecção de IA: ${error.message}")
+                        
+                        // ❌ Ativa estado visual de erro
+                        imageView.showError()
+                        
+                        // 🔇 Erro de IA silencioso
                         
                         // Volta para o menu
                         actionMenu.showMenu()
+                        
+                        // 🔄 Volta ao normal após 600ms (ultra rápido)
+                        launch {
+                            delay(600)
+                            imageView.showNormal()
+                        }
                     }
                 )
                 
             } catch (e: Exception) {
                 Log.e(TAG, "❌ Erro no scan de IA: ${e.message}", e)
-                showToast("❌ Erro inesperado no scan de IA")
+                // 🔇 Erro de IA silencioso
                 actionMenu.showMenu()
             }
         }
     }
 
     /**
-     * 🔄 Volta para modo de desenho
+     * 🎨 Otimiza qualidade da imagem
      */
-    private fun resetToDrawingMode() {
-        hideMenuAndOCR()
-        smartDrawingView.clearSelection()
-        smartDrawingView.visibility = View.VISIBLE
-        selectedRegion = null
-        currentMode = ViewMode.DRAWING
+    private fun optimizeBitmapQuality(bitmap: Bitmap): Bitmap {
+        // Se a imagem é muito pequena, não otimiza
+        if (bitmap.width < 100 || bitmap.height < 100) return bitmap
         
-        showToast("🎨 Modo desenho ativado")
+        // Se a imagem é muito grande, redimensiona mantendo qualidade
+        val maxDimension = 2048
+        return if (bitmap.width > maxDimension || bitmap.height > maxDimension) {
+            val scale = minOf(
+                maxDimension.toFloat() / bitmap.width,
+                maxDimension.toFloat() / bitmap.height
+            )
+            val newWidth = (bitmap.width * scale).toInt()
+            val newHeight = (bitmap.height * scale).toInt()
+            
+            Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true)
+        } else {
+            bitmap
+        }
+    }
+
+    // 🚫 resetToDrawingMode removida - substituída por enterMagicalDrawingMode
+
+    /**
+     * 🔄 Converte coordenadas da seleção para o ImageView
+     */
+    private fun convertToImageCoordinates(selectionRect: RectF): RectF {
+        // Como ambas as views ocupam a tela toda, as coordenadas são as mesmas
+        return RectF(selectionRect)
+    }
+
+    /**
+     * 🎯 Posiciona menu inteligentemente baseado na seleção
+     */
+    private fun updateActionMenuPosition(selectionRect: RectF) {
+        val menuHeight = 400 // 🎯 Altura real do menu expandido
+        val menuWidth = 200 // 🎯 Largura estimada
+        val margin = 24f // 🎨 Margem elegante
+        
+        // 📱 Dimensões da tela
+        val screenHeight = mainContainer.height
+        val screenWidth = mainContainer.width
+        
+        // 🧠 Posicionamento inteligente
+        val layoutParams = actionMenu.layoutParams as FrameLayout.LayoutParams
+        
+        // 🎯 Prioridade: direita da seleção
+        when {
+            // 1️⃣ Direita tem espaço suficiente
+            selectionRect.right + menuWidth + margin < screenWidth -> {
+                layoutParams.leftMargin = (selectionRect.right + margin).toInt()
+                layoutParams.topMargin = (selectionRect.centerY() - menuHeight/2).coerceAtLeast(50f).toInt()
+                layoutParams.gravity = Gravity.LEFT or Gravity.TOP
+            }
+            // 2️⃣ Esquerda tem espaço
+            selectionRect.left - menuWidth - margin > 0 -> {
+                layoutParams.rightMargin = (screenWidth - selectionRect.left + margin).toInt()
+                layoutParams.topMargin = (selectionRect.centerY() - menuHeight/2).coerceAtLeast(50f).toInt()
+                layoutParams.gravity = Gravity.RIGHT or Gravity.TOP
+            }
+            // 3️⃣ Acima da seleção
+            selectionRect.top - menuHeight - margin > 50 -> {
+                layoutParams.leftMargin = 0
+                layoutParams.rightMargin = 0
+                layoutParams.topMargin = (selectionRect.top - menuHeight - margin).toInt()
+                layoutParams.gravity = Gravity.CENTER_HORIZONTAL or Gravity.TOP
+            }
+            // 4️⃣ Abaixo da seleção (último recurso)
+            else -> {
+                layoutParams.leftMargin = 0
+                layoutParams.rightMargin = 0
+                layoutParams.topMargin = (selectionRect.bottom + margin).coerceAtMost(screenHeight - menuHeight - 50f).toInt()
+                layoutParams.gravity = Gravity.CENTER_HORIZONTAL or Gravity.TOP
+            }
+        }
+        
+        actionMenu.layoutParams = layoutParams
     }
 
     /**
      * 🎯 Mostra menu de ações
      */
     private fun showActionMenu() {
+        val selectionRect = elegantSelectionView.getSelectionRect()
+        if (selectionRect != null) {
+            updateActionMenuPosition(selectionRect)
+        }
+        
         actionMenu.visibility = View.VISIBLE
         actionMenu.showMenu()
     }
@@ -486,7 +748,7 @@ class UltimateImageViewerActivity : Activity() {
      * 📝 Mostra instruções do OCR
      */
     private fun showOCRInstructions() {
-        showToast("💡 Toque: palavra | Duplo toque: linha | Toque longo: bloco + copiar")
+        // 🔇 Instruções OCR silenciosas
     }
 
     /**
@@ -502,26 +764,29 @@ class UltimateImageViewerActivity : Activity() {
     }
 
     /**
-     * 💾 Salva bitmap em arquivo
+     * 💾 Salva bitmap em arquivo com qualidade otimizada
      */
-    private fun saveBitmapToFile(bitmap: Bitmap): File {
+    private fun saveBitmapToFile(bitmap: Bitmap, prefix: String = "lumin"): File {
         val timeStamp = SimpleDateFormat("yyyyMMdd_HHmmss", Locale.getDefault()).format(Date())
-        val fileName = "selected_area_$timeStamp.jpg"
+        val fileName = "${prefix}_$timeStamp.jpg"
         
-        val file = File(getExternalFilesDir(null), fileName)
+        // 📁 Salva na pasta Pictures/Lumin
+        val picturesDir = Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_PICTURES)
+        val luminDir = File(picturesDir, "Lumin")
+        if (!luminDir.exists()) {
+            luminDir.mkdirs()
+        }
+        
+        val file = File(luminDir, fileName)
         FileOutputStream(file).use { out ->
-            bitmap.compress(Bitmap.CompressFormat.JPEG, 90, out)
+            // 🎯 Qualidade alta para preservar detalhes
+            bitmap.compress(Bitmap.CompressFormat.JPEG, 95, out)
         }
         
         return file
     }
 
-    /**
-     * 💬 Mostra toast elegante
-     */
-    private fun showToast(message: String) {
-        Toast.makeText(this, message, Toast.LENGTH_SHORT).show()
-    }
+    // 🔇 Função showToast removida - operação silenciosa
 
     /**
      * ❌ Mostra erro e fecha
@@ -535,12 +800,15 @@ class UltimateImageViewerActivity : Activity() {
     override fun onBackPressed() {
         when (currentMode) {
             ViewMode.OCR_ACTIVE -> {
-                resetToDrawingMode()
+                enterMagicalDrawingMode()
             }
             ViewMode.MENU_VISIBLE -> {
-                resetToDrawingMode()
+                enterMagicalDrawingMode()
             }
-            ViewMode.DRAWING -> {
+            ViewMode.SMART_SELECTION -> {
+                enterMagicalDrawingMode()
+            }
+            ViewMode.MAGICAL_DRAWING -> {
                 @Suppress("DEPRECATION")
                 super.onBackPressed()
             }

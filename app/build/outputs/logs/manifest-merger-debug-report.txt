@@ -1,20 +1,20 @@
 -- Merging decision tree log ---
 provider#androidx.core.content.FileProvider
-INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:90:9-98:20
+INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:78:9-86:20
 	android:grantUriPermissions
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:94:13-47
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:82:13-47
 	android:authorities
 		INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:92:13-64
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:80:13-64
 	android:exported
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:93:13-37
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:81:13-37
 	android:name
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:91:13-62
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:79:13-62
 manifest
-ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:2:1-102:12
-INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:2:1-102:12
-INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:2:1-102:12
-INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:2:1-102:12
+ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:2:1-90:12
+INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:2:1-90:12
+INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:2:1-90:12
+INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:2:1-90:12
 MERGED from [androidx.databinding:viewbinding:8.7.0] C:\Users\GB4\.gradle\caches\8.9\transforms\86347eb3fe68fa9412b7a22541eb6dd0\transformed\viewbinding-8.7.0\AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\GB4\.gradle\caches\8.9\transforms\cbf2fb86a201e584b659a2b08ae43b56\transformed\material-1.11.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\GB4\.gradle\caches\8.9\transforms\859e18b6b54fd037b8ab81b2aa65973b\transformed\constraintlayout-2.1.4\AndroidManifest.xml:2:1-11:12
@@ -154,8 +154,8 @@ ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManif
 	android:name
 		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:23:22-77
 application
-ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:25:5-100:19
-INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:25:5-100:19
+ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:25:5-88:19
+INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:25:5-88:19
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\GB4\.gradle\caches\8.9\transforms\cbf2fb86a201e584b659a2b08ae43b56\transformed\material-1.11.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\GB4\.gradle\caches\8.9\transforms\cbf2fb86a201e584b659a2b08ae43b56\transformed\material-1.11.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\GB4\.gradle\caches\8.9\transforms\859e18b6b54fd037b8ab81b2aa65973b\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
@@ -229,7 +229,7 @@ MERGED from [com.google.android.odml:image:1.0.0-beta1] C:\Users\GB4\.gradle\cac
 	android:allowBackup
 		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:26:9-35
 	android:theme
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:33:9-52
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:33:9-43
 	android:dataExtractionRules
 		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:27:9-65
 activity#com.example.floatingbutton.MainActivity
@@ -237,7 +237,7 @@ ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManif
 	android:exported
 		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:38:13-36
 	android:theme
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:39:13-56
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:39:13-47
 	android:name
 		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:37:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
@@ -296,32 +296,12 @@ ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManif
 		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:71:13-71
 	android:name
 		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:69:13-56
-activity#com.example.floatingbutton.ModernImageViewerActivity
-ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:76:9-80:52
-	android:screenOrientation
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:80:13-49
-	android:exported
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:78:13-37
-	android:theme
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:79:13-71
-	android:name
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:77:13-54
-activity#com.example.floatingbutton.ImageViewerActivity
-ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:83:9-87:52
-	android:screenOrientation
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:87:13-49
-	android:exported
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:85:13-37
-	android:theme
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:86:13-71
-	android:name
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:84:13-48
 meta-data#android.support.FILE_PROVIDER_PATHS
-ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:95:13-97:63
+ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:83:13-85:63
 	android:resource
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:97:17-60
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:85:17-60
 	android:name
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:96:17-67
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:84:17-67
 uses-sdk
 INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml

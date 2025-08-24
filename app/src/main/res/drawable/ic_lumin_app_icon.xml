@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<vector xmlns:android="http://schemas.android.com/apk/res/android"
+    android:width="108dp"
+    android:height="108dp"
+    android:viewportWidth="108"
+    android:viewportHeight="108">
+    
+    <!-- 🌟 Background gradient -->
+    <path
+        android:fillColor="#FF069E6E"
+        android:pathData="M0,0h108v108h-108z"/>
+    
+    <!-- ✨ Inner glow -->
+    <path
+        android:fillColor="#80FFFFFF"
+        android:pathData="M54,20
+                         C70,20 83,33 83,49
+                         C83,65 70,78 54,78
+                         C38,78 25,65 25,49
+                         C25,33 38,20 54,20Z"/>
+    
+    <!-- 🎯 Main icon - AI detection symbol -->
+    <path
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,30
+                         C62,30 68,36 68,44
+                         C68,52 62,58 54,58
+                         C46,58 40,52 40,44
+                         C40,36 46,30 54,30Z"/>
+    
+    <!-- 🔍 Detection lines -->
+    <path
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="3"
+        android:strokeLineCap="round"
+        android:pathData="M35,35 L45,45
+                         M73,35 L63,45
+                         M35,63 L45,53
+                         M73,63 L63,53"/>
+    
+    <!-- ⚡ AI spark -->
+    <path
+        android:fillColor="#FFD700"
+        android:pathData="M54,44
+                         L56,40
+                         L58,44
+                         L62,42
+                         L58,46
+                         L62,48
+                         L58,46
+                         L56,50
+                         L54,46
+                         L50,48
+                         L54,44
+                         L50,42
+                         L54,44Z"/>
+</vector>

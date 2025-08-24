@@ -5,23 +5,50 @@
     android:viewportWidth="108"
     android:viewportHeight="108">
     
-    <!-- Fundo circular -->
+    <!-- 🌟 Fundo circular Lumin -->
     <path
-        android:fillColor="@color/primary"
-        android:pathData="M54,54m-48,0a48,48 0,1 1,96 0a48,48 0,1 1,-96 0"/>
+        android:fillColor="#FF069E6E"
+        android:pathData="M54,54m-50,0a50,50 0,1 1,100 0a50,50 0,1 1,-100 0"/>
     
-    <!-- Ícone central -->
+    <!-- ✨ Glow interno -->
     <path
-        android:fillColor="@color/white"
-        android:pathData="M54,30m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0"/>
+        android:fillColor="#40FFFFFF"
+        android:pathData="M54,54m-40,0a40,40 0,1 1,80 0a40,40 0,1 1,-80 0"/>
+    
+    <!-- 🎯 Símbolo IA central -->
     <path
-        android:fillColor="@color/white"
-        android:pathData="M54,78m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0"/>
+        android:fillColor="#FFFFFF"
+        android:pathData="M54,35
+                         C62,35 68,41 68,49
+                         C68,57 62,63 54,63
+                         C46,63 40,57 40,49
+                         C40,41 46,35 54,35Z"/>
+    
+    <!-- 🔍 Linhas de detecção -->
     <path
-        android:fillColor="@color/white"
-        android:pathData="M30,54m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0"/>
+        android:strokeColor="#FFFFFF"
+        android:strokeWidth="4"
+        android:strokeLineCap="round"
+        android:pathData="M30,30 L42,42
+                         M78,30 L66,42
+                         M30,78 L42,66
+                         M78,78 L66,66"/>
+    
+    <!-- ⚡ Spark de IA -->
     <path
-        android:fillColor="@color/white"
-        android:pathData="M78,54m-8,0a8,8 0,1 1,16 0a8,8 0,1 1,-16 0"/>
+        android:fillColor="#FFD700"
+        android:pathData="M54,49
+                         L56,44
+                         L58,49
+                         L63,47
+                         L58,51
+                         L63,53
+                         L58,51
+                         L56,56
+                         L54,51
+                         L49,53
+                         L54,49
+                         L49,47
+                         L54,49Z"/>
         
 </vector>

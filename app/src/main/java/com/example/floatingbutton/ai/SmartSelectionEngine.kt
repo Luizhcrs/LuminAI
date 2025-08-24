@@ -23,6 +23,8 @@ class SmartSelectionEngine(private val context: Context) {
     
     companion object {
         private const val TAG = "SmartSelectionEngine"
+        private const val MAX_ANALYSIS_SIZE = 512 // ⚡ Reduzido para análise mais rápida
+        private const val CACHE_TIMEOUT_MS = 300000L // 📦 5 minutos de cache
     }
     
     // Detectores de IA
@@ -64,6 +66,9 @@ class SmartSelectionEngine(private val context: Context) {
     ): List<DetectedObject> = withContext(Dispatchers.Default) {
         
         Log.d(TAG, "🤖 Iniciando análise inteligente da região...")
+        
+        // ⚡ Otimiza bitmap para análise mais rápida
+        val optimizedBitmap = optimizeBitmapForAnalysis(bitmap)
         val userBounds = calculateBounds(userDrawnPoints)
         
         // 🚀 VERIFICA CACHE PRIMEIRO
@@ -81,26 +86,26 @@ class SmartSelectionEngine(private val context: Context) {
         try {
             onProgress("Analisando área selecionada...")
             
-            // 🔍 ETAPA 1: Detecção de texto com ML Kit
+            // 🔍 ETAPA 1: Detecção de texto com ML Kit (otimizada)
             onProgress("Detectando texto...")
-            val textObjects = detectWithCache(bitmap, userBounds, "mlkit_text") {
-                mlKitDetector.detectText(bitmap, userBounds)
+            val textObjects = detectWithCache(optimizedBitmap, userBounds, "mlkit_text") {
+                mlKitDetector.detectText(optimizedBitmap, userBounds)
             }
             detectedObjects.addAll(textObjects)
             Log.d(TAG, "📝 ML Kit detectou ${textObjects.size} textos")
             
-            // 🔍 ETAPA 2: Detecção de objetos com TensorFlow Lite
+            // 🔍 ETAPA 2: Detecção de objetos com TensorFlow Lite (otimizada)
             onProgress("Reconhecendo objetos...")
-            val tfObjects = detectWithCache(bitmap, userBounds, "tensorflow") {
-                tensorFlowDetector.detectObjects(bitmap, userBounds)
+            val tfObjects = detectWithCache(optimizedBitmap, userBounds, "tensorflow") {
+                tensorFlowDetector.detectObjects(optimizedBitmap, userBounds)
             }
             detectedObjects.addAll(tfObjects)
             Log.d(TAG, "🧠 TensorFlow detectou ${tfObjects.size} objetos")
             
-            // 🔍 ETAPA 3: Detecção de formas com OpenCV
+            // 🔍 ETAPA 3: Detecção de formas com OpenCV (otimizada)
             onProgress("Analisando formas...")
-            val cvObjects = detectWithCache(bitmap, userBounds, "opencv") {
-                openCVDetector.detectShapes(bitmap, userBounds)
+            val cvObjects = detectWithCache(optimizedBitmap, userBounds, "opencv") {
+                openCVDetector.detectShapes(optimizedBitmap, userBounds)
             }
             detectedObjects.addAll(cvObjects)
             Log.d(TAG, "👁️ OpenCV detectou ${cvObjects.size} formas")
@@ -111,6 +116,11 @@ class SmartSelectionEngine(private val context: Context) {
             
             // 💾 ARMAZENA NO CACHE
             aiCache.cacheAnalysisResult(bitmap, userBounds, "smart_selection", rankedObjects)
+            
+            // 🧹 Libera bitmap otimizado se foi criado
+            if (optimizedBitmap != bitmap) {
+                optimizedBitmap.recycle()
+            }
             
             Log.d(TAG, "✅ Análise concluída: ${rankedObjects.size} objetos finais")
             return@withContext rankedObjects
@@ -144,6 +154,22 @@ class SmartSelectionEngine(private val context: Context) {
             Log.d(TAG, "🎯 Objeto ${obj.type}: proximidade=$proximityScore, confiança=$confidenceScore, tipo=$typeScore")
             
             proximityScore * 0.4f + confidenceScore * 0.3f + typeScore * 0.3f
+        }
+    }
+    
+    /**
+     * ⚡ Otimiza bitmap para análise mais rápida
+     */
+    private fun optimizeBitmapForAnalysis(bitmap: Bitmap): Bitmap {
+        return if (bitmap.width > MAX_ANALYSIS_SIZE || bitmap.height > MAX_ANALYSIS_SIZE) {
+            val scale = MAX_ANALYSIS_SIZE.toFloat() / maxOf(bitmap.width, bitmap.height)
+            val newWidth = (bitmap.width * scale).toInt()
+            val newHeight = (bitmap.height * scale).toInt()
+            
+            Log.d(TAG, "⚡ Otimizando para análise: ${bitmap.width}x${bitmap.height} → ${newWidth}x${newHeight}")
+            Bitmap.createScaledBitmap(bitmap, newWidth, newHeight, true)
+        } else {
+            bitmap
         }
     }
     

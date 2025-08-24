@@ -5,8 +5,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -19,7 +19,7 @@ import java.lang.String;
 
 public final class ActivityMainBinding implements ViewBinding {
   @NonNull
-  private final LinearLayout rootView;
+  private final FrameLayout rootView;
 
   @NonNull
   public final Button btnCheckPermission;
@@ -39,7 +39,7 @@ public final class ActivityMainBinding implements ViewBinding {
   @NonNull
   public final TextView tvPermissionStatus;
 
-  private ActivityMainBinding(@NonNull LinearLayout rootView, @NonNull Button btnCheckPermission,
+  private ActivityMainBinding(@NonNull FrameLayout rootView, @NonNull Button btnCheckPermission,
       @NonNull Button btnStartService, @NonNull Button btnStopService, @NonNull ImageView imageView,
       @NonNull TextView tvImageStatus, @NonNull TextView tvPermissionStatus) {
     this.rootView = rootView;
@@ -53,7 +53,7 @@ public final class ActivityMainBinding implements ViewBinding {
 
   @Override
   @NonNull
-  public LinearLayout getRoot() {
+  public FrameLayout getRoot() {
     return rootView;
   }
 
@@ -114,7 +114,7 @@ public final class ActivityMainBinding implements ViewBinding {
         break missingId;
       }
 
-      return new ActivityMainBinding((LinearLayout) rootView, btnCheckPermission, btnStartService,
+      return new ActivityMainBinding((FrameLayout) rootView, btnCheckPermission, btnStartService,
           btnStopService, imageView, tvImageStatus, tvPermissionStatus);
     }
     String missingId = rootView.getResources().getResourceName(id);

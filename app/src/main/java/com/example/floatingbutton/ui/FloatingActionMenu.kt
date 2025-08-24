@@ -33,13 +33,14 @@ class FloatingActionMenu @JvmOverloads constructor(
 ) : LinearLayout(context, attrs, defStyleAttr) {
 
     companion object {
-        private const val ANIMATION_DURATION = 300L
-        private const val STAGGER_DELAY = 50L
+        private const val ANIMATION_DURATION = 80L // ⚡ Ultra rápido
+        private const val STAGGER_DELAY = 8L // ⚡ Delay mínimo entre botões
     }
 
     // 🎯 Ações disponíveis
     enum class Action {
-        OCR, SAVE_AREA, CROP, SEARCH, AI_SCAN, CLOSE
+        OCR, SAVE_AREA, SEARCH, AI_SCAN, CLOSE
+        // 🗑️ CROP removido
     }
 
     // 🎯 Callback para ações
@@ -59,58 +60,49 @@ class FloatingActionMenu @JvmOverloads constructor(
      * 🎨 Cria os botões de ação com design moderno
      */
     private fun createActionButtons() {
-        // 📝 OCR - Extrair Texto
-        addActionButton(
-            action = Action.OCR,
-            icon = "📝",
-            title = "Extrair Texto",
-            subtitle = "OCR da área selecionada",
-            color = "#4285F4"
-        )
-
-        // 🖼️ Salvar Área
-        addActionButton(
-            action = Action.SAVE_AREA,
-            icon = "🖼️",
-            title = "Salvar Área",
-            subtitle = "Salvar região selecionada",
-            color = "#34A853"
-        )
-
-        // ✂️ Recortar
-        addActionButton(
-            action = Action.CROP,
-            icon = "✂️",
-            title = "Recortar",
-            subtitle = "Cortar imagem",
-            color = "#FBBC04"
-        )
-
-        // 🔍 Pesquisar
-        addActionButton(
-            action = Action.SEARCH,
-            icon = "🔍",
-            title = "Pesquisar",
-            subtitle = "Pesquisar conteúdo",
-            color = "#EA4335"
-        )
-
-        // 🤖 Scan de IA
+        // 🤖 IA - Primeiro lugar
         addActionButton(
             action = Action.AI_SCAN,
-            icon = "🤖",
-            title = "Detectar IA",
-            subtitle = "Verificar se é gerada por IA",
-            color = "#9C27B0"
+            icon = "AI", // Nome AI
+            title = "IA",
+            subtitle = "",
+            color = "#069E6E" // Cor única
+        )
+
+        // 📝 OCR - Texto
+        addActionButton(
+            action = Action.OCR,
+            icon = "T", // Ícone de texto
+            title = "OCR",
+            subtitle = "",
+            color = "#069E6E" // Cor única
+        )
+
+        // 🔍 Buscar
+        addActionButton(
+            action = Action.SEARCH,
+            icon = "◉", // Ícone de busca simples
+            title = "Buscar",
+            subtitle = "",
+            color = "#069E6E" // Cor única
+        )
+
+        // 💾 Salvar
+        addActionButton(
+            action = Action.SAVE_AREA,
+            icon = "▼", // Ícone de salvar simples
+            title = "Salvar",
+            subtitle = "",
+            color = "#069E6E" // Cor única
         )
 
         // ❌ Fechar
         addActionButton(
             action = Action.CLOSE,
-            icon = "❌",
+            icon = "×", // Ícone X simples
             title = "Fechar",
-            subtitle = "Cancelar seleção",
-            color = "#9AA0A6"
+            subtitle = "",
+            color = "#069E6E" // Cor única
         )
     }
 
@@ -127,10 +119,11 @@ class FloatingActionMenu @JvmOverloads constructor(
         val buttonContainer = LinearLayout(context).apply {
             orientation = HORIZONTAL
             gravity = Gravity.CENTER_VERTICAL
-            setPadding(32, 16, 32, 16)
+            setPadding(24, 16, 24, 16) // 🎨 Padding elegante
             
             // Background com sombra e cantos arredondados
             background = createButtonBackground(color)
+            elevation = 8f // 🌟 Sombra elegante
             
             // Efeito de clique
             isClickable = true
@@ -145,11 +138,13 @@ class FloatingActionMenu @JvmOverloads constructor(
         // 🎨 Ícone
         val iconView = TextView(context).apply {
             text = icon
-            textSize = 24f
+            textSize = 18f // 🔥 Maior para melhor legibilidade
             gravity = Gravity.CENTER
-            layoutParams = LinearLayout.LayoutParams(80, 80).apply {
-                marginEnd = 24
+            layoutParams = LinearLayout.LayoutParams(56, 56).apply { // 🎨 Mais espaçoso
+                marginEnd = 16 // 🎨 Margem elegante
             }
+            setTextColor(Color.WHITE)
+            typeface = android.graphics.Typeface.create(android.graphics.Typeface.DEFAULT, android.graphics.Typeface.BOLD)
         }
 
         // 🎨 Container de texto
@@ -158,23 +153,25 @@ class FloatingActionMenu @JvmOverloads constructor(
             layoutParams = LinearLayout.LayoutParams(0, ViewGroup.LayoutParams.WRAP_CONTENT, 1f)
         }
 
-        // 🎨 Título
+        // 🎨 Título (minimalista)
         val titleView = TextView(context).apply {
             text = title
-            textSize = 16f
+            textSize = 14f // 🔥 Menor e minimalista
             setTextColor(Color.WHITE)
             typeface = android.graphics.Typeface.DEFAULT_BOLD
         }
 
-        // 🎨 Subtítulo
-        val subtitleView = TextView(context).apply {
-            text = subtitle
-            textSize = 12f
-            setTextColor(Color.parseColor("#B3FFFFFF"))
-        }
-
         textContainer.addView(titleView)
-        textContainer.addView(subtitleView)
+        
+        // 🎯 Só adiciona subtítulo se não estiver vazio
+        if (subtitle.isNotEmpty()) {
+            val subtitleView = TextView(context).apply {
+                text = subtitle
+                textSize = 11f // 🔥 Menor
+                setTextColor(Color.parseColor("#B3FFFFFF"))
+            }
+            textContainer.addView(subtitleView)
+        }
         
         buttonContainer.addView(iconView)
         buttonContainer.addView(textContainer)
@@ -199,17 +196,29 @@ class FloatingActionMenu @JvmOverloads constructor(
     }
 
     /**
-     * 🎨 Cria background elegante para os botões
+     * 🎨 Cria background moderno com gradiente e sombra
      */
     private fun createButtonBackground(color: String): GradientDrawable {
         return GradientDrawable().apply {
             shape = GradientDrawable.RECTANGLE
-            cornerRadius = 28f
+            cornerRadius = 16f
+            
+            // 🎯 Cor sólida minimalista (sem gradiente)
             setColor(Color.parseColor(color))
             
-            // Sombra suave
-            setStroke(2, Color.parseColor("#20000000"))
+            // ✨ Borda elegante
+            setStroke(2, Color.parseColor("#60FFFFFF"))
         }
+    }
+    
+    /**
+     * 🎨 Ajusta brilho da cor
+     */
+    private fun adjustColorBrightness(color: Int, factor: Float): Int {
+        val hsv = FloatArray(3)
+        Color.colorToHSV(color, hsv)
+        hsv[2] = (hsv[2] * factor).coerceIn(0f, 1f)
+        return Color.HSVToColor(Color.alpha(color), hsv)
     }
 
     /**

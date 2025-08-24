@@ -1,115 +1,150 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="24dp"
-    android:gravity="center"
+    android:background="@drawable/app_background_gradient"
     tools:context=".MainActivity">
 
-    <ImageView
-        android:layout_width="120dp"
-        android:layout_height="120dp"
-        android:src="@drawable/ic_floating_button"
-        android:contentDescription="Ícone do botão flutuante"
-        android:layout_marginBottom="32dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Botão Flutuante"
-        android:textSize="28sp"
-        android:textStyle="bold"
-        android:textColor="@color/primary"
-        android:layout_marginBottom="8dp" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Este app cria um botão flutuante que fica visível em todas as aplicações"
-        android:textSize="16sp"
-        android:textAlignment="center"
-        android:layout_marginBottom="32dp"
-        android:maxLines="3" />
-
-    <TextView
-        android:id="@+id/tvPermissionStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Verificando permissão..."
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="24dp"
-        android:padding="12dp"
-        android:background="@drawable/permission_status_background" />
-
+    <!-- Conteúdo principal -->
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="match_parent"
         android:orientation="vertical"
-        android:spacing="16dp">
+        android:gravity="center"
+        android:padding="32dp">
 
-        <Button
-            android:id="@+id/btnCheckPermission"
+        <!-- Logo e nome do app -->
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_marginBottom="48dp">
+
+            <!-- Ícone do Lumin -->
+            <TextView
+                android:layout_width="120dp"
+                android:layout_height="120dp"
+                android:text="✨"
+                android:textSize="64sp"
+                android:gravity="center"
+                android:background="@drawable/lumin_logo_background"
+                android:layout_marginBottom="24dp" />
+
+            <!-- Nome do app -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Lumin"
+                android:textSize="42sp"
+                android:textStyle="bold"
+                android:textColor="#FF069E6E"
+                android:layout_marginBottom="8dp" />
+
+            <!-- Subtítulo -->
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Análise Inteligente de Imagens"
+                android:textSize="18sp"
+                android:textColor="#80FFFFFF"
+                android:textAlignment="center" />
+
+        </LinearLayout>
+
+        <!-- Card de instruções -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Verificar Permissão"
-            android:textSize="16sp"
-            android:padding="16dp"
-            android:layout_marginBottom="16dp"
-            style="@style/Widget.Material3.Button.OutlinedButton" />
+            android:orientation="vertical"
+            android:background="@drawable/lumin_instruction_card"
+            android:padding="32dp"
+            android:layout_marginBottom="32dp">
 
-        <Button
-            android:id="@+id/btnStartService"
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Como usar o Lumin:"
+                android:textSize="20sp"
+                android:textStyle="bold"
+                android:textColor="#FF069E6E"
+                android:layout_marginBottom="16dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="1. Tire um print da tela (Volume + Power)\n2. Compartilhe com Lumin\n3. Use o pincel mágico para selecionar\n4. Analise com IA avançada"
+                android:textSize="16sp"
+                android:textColor="#E0FFFFFF"
+                android:lineSpacingExtra="4dp" />
+
+        </LinearLayout>
+
+        <!-- Status de permissão minimalista -->
+        <TextView
+            android:id="@+id/tvPermissionStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Verificando permissões..."
+            android:textSize="16sp"
+            android:textColor="#80FFFFFF"
+            android:layout_marginBottom="24dp" />
+
+        <!-- Botões principais -->
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Iniciar Botão Flutuante"
-            android:textSize="16sp"
-            android:padding="16dp"
-            android:layout_marginBottom="16dp"
-            style="@style/Widget.Material3.Button" />
+            android:orientation="vertical"
+            android:gravity="center">
 
-        <Button
-            android:id="@+id/btnStopService"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="Parar Botão Flutuante"
-            android:textSize="16sp"
-            android:padding="16dp"
-            style="@style/Widget.Material3.Button.OutlinedButton" />
+            <Button
+                android:id="@+id/btnStartService"
+                android:layout_width="280dp"
+                android:layout_height="56dp"
+                android:text="Ativar Lumin"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:background="@drawable/lumin_primary_button"
+                android:textColor="#FFFFFF"
+                android:layout_marginBottom="16dp" />
+
+            <Button
+                android:id="@+id/btnStopService"
+                android:layout_width="280dp"
+                android:layout_height="56dp"
+                android:text="Desativar Lumin"
+                android:textSize="18sp"
+                android:background="@drawable/lumin_secondary_button"
+                android:textColor="#FF069E6E"
+                android:layout_marginBottom="16dp" />
+
+            <Button
+                android:id="@+id/btnCheckPermission"
+                android:layout_width="280dp"
+                android:layout_height="48dp"
+                android:text="Verificar Permissões"
+                android:textSize="16sp"
+                android:background="@drawable/lumin_outline_button"
+                android:textColor="#80FFFFFF" />
+
+        </LinearLayout>
 
     </LinearLayout>
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="⚠️ Importante: Para funcionar, você precisa conceder permissão de sobreposição nas configurações do sistema."
-        android:textSize="14sp"
-        android:textAlignment="center"
-        android:layout_marginTop="32dp"
-        android:padding="16dp"
-        android:background="@drawable/warning_background"
-        android:textColor="@color/warning_text" />
-
-    <!-- ImageView para exibir imagens compartilhadas -->
+    <!-- ImageView para preview de imagens compartilhadas (oculto por padrão) -->
     <ImageView
         android:id="@+id/imageView"
-        android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:scaleType="centerCrop"
-        android:background="@android:color/darker_gray"
-        android:layout_marginTop="24dp"
-        android:contentDescription="Imagem compartilhada" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone"
+        android:contentDescription="Preview da imagem" />
 
     <TextView
         android:id="@+id/tvImageStatus"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Nenhuma imagem recebida"
-        android:textSize="14sp"
-        android:layout_marginTop="8dp"
-        android:textColor="@color/secondary_text" />
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:visibility="gone" />
 
-</LinearLayout>
+</FrameLayout>

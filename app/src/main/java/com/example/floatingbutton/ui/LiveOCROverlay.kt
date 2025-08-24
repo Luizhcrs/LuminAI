@@ -77,7 +77,7 @@ class LiveOCROverlay @JvmOverloads constructor(
     // 🎨 Paints para renderização
     private val textPaint = TextPaint().apply {
         isAntiAlias = true
-        textSize = 16f
+        textSize = 18f // 🎯 Tamanho base ajustável
         color = Color.WHITE
         typeface = Typeface.DEFAULT
         setShadowLayer(2f, 1f, 1f, Color.BLACK)
@@ -207,6 +207,19 @@ class LiveOCROverlay @JvmOverloads constructor(
      * 🎨 Desenha uma palavra
      */
     private fun drawWord(canvas: Canvas, word: OCRWord) {
+        // 🎯 Calcula tamanho do texto baseado na altura da palavra
+        val originalHeight = word.bounds.height()
+        val scaledTextSize = (originalHeight * 0.9f).coerceIn(14f, 40f)
+        
+        // 🎨 Cria paint específico para esta palavra
+        val wordPaint = TextPaint().apply {
+            isAntiAlias = true
+            textSize = scaledTextSize
+            color = Color.WHITE
+            typeface = Typeface.DEFAULT_BOLD
+            setShadowLayer(3f, 1f, 1f, Color.BLACK)
+        }
+        
         // Highlight da palavra se selecionada
         if (word == selectedWord) {
             canvas.drawRoundRect(
@@ -218,12 +231,16 @@ class LiveOCROverlay @JvmOverloads constructor(
             )
         }
 
-        // Desenha o texto da palavra
+        // 📏 Centraliza texto verticalmente na bounding box
+        val textHeight = wordPaint.fontMetrics.let { it.bottom - it.top }
+        val yPosition = word.bounds.top + (word.bounds.height() + textHeight) / 2 - wordPaint.fontMetrics.bottom
+
+        // Desenha o texto da palavra com tamanho correto
         canvas.drawText(
             word.text,
             word.bounds.left,
-            word.bounds.bottom - 4f, // Ajuste para baseline
-            textPaint
+            yPosition,
+            wordPaint
         )
     }
 
@@ -433,7 +450,7 @@ class LiveOCROverlay @JvmOverloads constructor(
             val clip = ClipData.newPlainText("OCR Text", textToCopy)
             clipboard.setPrimaryClip(clip)
             
-            Toast.makeText(context, "📋 Texto copiado!", Toast.LENGTH_SHORT).show()
+            // 🔇 Texto copiado silenciosamente
         }
     }
 
@@ -522,7 +539,7 @@ class LiveOCROverlay @JvmOverloads constructor(
 
             } catch (e: Exception) {
                 android.util.Log.e(TAG, "Erro no OCR: ${e.message}", e)
-                Toast.makeText(context, "❌ Erro no OCR", Toast.LENGTH_SHORT).show()
+                // 🔇 Erro OCR silencioso
             }
         }
     }
