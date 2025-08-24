@@ -203,6 +203,9 @@ class ModernImageViewerActivity : Activity() {
                 FloatingActionMenu.Action.SEARCH -> {
                     searchContent()
                 }
+                FloatingActionMenu.Action.AI_SCAN -> {
+                    performAIScan()
+                }
                 FloatingActionMenu.Action.CLOSE -> {
                     closeViewer()
                 }
@@ -362,6 +365,16 @@ class ModernImageViewerActivity : Activity() {
                 Toast.LENGTH_LONG
             ).show()
         }
+    }
+
+    /**
+     * 🤖 Executa scan de IA (placeholder para compatibilidade)
+     */
+    private fun performAIScan() {
+        Toast.makeText(this, "🤖 Scan de IA disponível no Ultimate Viewer!", Toast.LENGTH_LONG).show()
+        
+        // Redireciona para UltimateImageViewerActivity se necessário
+        // Por enquanto, apenas mostra mensagem
     }
 
     /**

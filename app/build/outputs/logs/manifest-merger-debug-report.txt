@@ -1,20 +1,20 @@
 -- Merging decision tree log ---
 provider#androidx.core.content.FileProvider
-INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:86:9-94:20
+INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:90:9-98:20
 	android:grantUriPermissions
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:90:13-47
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:94:13-47
 	android:authorities
 		INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:88:13-64
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:92:13-64
 	android:exported
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:89:13-37
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:93:13-37
 	android:name
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:87:13-62
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:91:13-62
 manifest
-ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:2:1-98:12
-INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:2:1-98:12
-INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:2:1-98:12
-INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:2:1-98:12
+ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:2:1-102:12
+INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:2:1-102:12
+INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:2:1-102:12
+INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:2:1-102:12
 MERGED from [androidx.databinding:viewbinding:8.7.0] C:\Users\GB4\.gradle\caches\8.9\transforms\86347eb3fe68fa9412b7a22541eb6dd0\transformed\viewbinding-8.7.0\AndroidManifest.xml:2:1-7:12
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\GB4\.gradle\caches\8.9\transforms\cbf2fb86a201e584b659a2b08ae43b56\transformed\material-1.11.0\AndroidManifest.xml:17:1-24:12
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\GB4\.gradle\caches\8.9\transforms\859e18b6b54fd037b8ab81b2aa65973b\transformed\constraintlayout-2.1.4\AndroidManifest.xml:2:1-11:12
@@ -123,17 +123,39 @@ uses-permission#android.permission.FOREGROUND_SERVICE_MEDIA_PROJECTION
 ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:15:5-94
 	android:name
 		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:15:22-91
+uses-permission#android.permission.INTERNET
+ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:18:5-67
+MERGED from [com.google.mlkit:object-detection:17.0.1] C:\Users\GB4\.gradle\caches\8.9\transforms\4ec50ec7a11c46d7f5069411701a020e\transformed\object-detection-17.0.1\AndroidManifest.xml:8:5-67
+MERGED from [com.google.mlkit:object-detection:17.0.1] C:\Users\GB4\.gradle\caches\8.9\transforms\4ec50ec7a11c46d7f5069411701a020e\transformed\object-detection-17.0.1\AndroidManifest.xml:8:5-67
+MERGED from [com.google.mlkit:vision-internal-vkp:18.2.2] C:\Users\GB4\.gradle\caches\8.9\transforms\5edfa33c0c147143e5761d15ccce5093\transformed\vision-internal-vkp-18.2.2\AndroidManifest.xml:8:5-67
+MERGED from [com.google.mlkit:vision-internal-vkp:18.2.2] C:\Users\GB4\.gradle\caches\8.9\transforms\5edfa33c0c147143e5761d15ccce5093\transformed\vision-internal-vkp-18.2.2\AndroidManifest.xml:8:5-67
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\GB4\.gradle\caches\8.9\transforms\ece13b40018045a6b0396718debacfcc\transformed\transport-backend-cct-2.3.3\AndroidManifest.xml:26:5-67
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\GB4\.gradle\caches\8.9\transforms\ece13b40018045a6b0396718debacfcc\transformed\transport-backend-cct-2.3.3\AndroidManifest.xml:26:5-67
+	android:name
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:18:22-64
+uses-permission#android.permission.ACCESS_NETWORK_STATE
+ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:19:5-79
+MERGED from [com.google.mlkit:object-detection:17.0.1] C:\Users\GB4\.gradle\caches\8.9\transforms\4ec50ec7a11c46d7f5069411701a020e\transformed\object-detection-17.0.1\AndroidManifest.xml:7:5-79
+MERGED from [com.google.mlkit:object-detection:17.0.1] C:\Users\GB4\.gradle\caches\8.9\transforms\4ec50ec7a11c46d7f5069411701a020e\transformed\object-detection-17.0.1\AndroidManifest.xml:7:5-79
+MERGED from [com.google.mlkit:vision-internal-vkp:18.2.2] C:\Users\GB4\.gradle\caches\8.9\transforms\5edfa33c0c147143e5761d15ccce5093\transformed\vision-internal-vkp-18.2.2\AndroidManifest.xml:7:5-79
+MERGED from [com.google.mlkit:vision-internal-vkp:18.2.2] C:\Users\GB4\.gradle\caches\8.9\transforms\5edfa33c0c147143e5761d15ccce5093\transformed\vision-internal-vkp-18.2.2\AndroidManifest.xml:7:5-79
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\GB4\.gradle\caches\8.9\transforms\ece13b40018045a6b0396718debacfcc\transformed\transport-backend-cct-2.3.3\AndroidManifest.xml:25:5-79
+MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\GB4\.gradle\caches\8.9\transforms\ece13b40018045a6b0396718debacfcc\transformed\transport-backend-cct-2.3.3\AndroidManifest.xml:25:5-79
+MERGED from [com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\GB4\.gradle\caches\8.9\transforms\4e84ba1e16c93d7dc1ae991a8fcec6ba\transformed\transport-runtime-2.2.6\AndroidManifest.xml:22:5-79
+MERGED from [com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\GB4\.gradle\caches\8.9\transforms\4e84ba1e16c93d7dc1ae991a8fcec6ba\transformed\transport-runtime-2.2.6\AndroidManifest.xml:22:5-79
+	android:name
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:19:22-76
 uses-permission#android.permission.WRITE_EXTERNAL_STORAGE
-ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:18:5-81
+ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:22:5-81
 	android:name
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:18:22-78
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:22:22-78
 uses-permission#android.permission.READ_EXTERNAL_STORAGE
-ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:19:5-80
+ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:23:5-80
 	android:name
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:19:22-77
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:23:22-77
 application
-ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:21:5-96:19
-INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:21:5-96:19
+ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:25:5-100:19
+INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:25:5-100:19
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\GB4\.gradle\caches\8.9\transforms\cbf2fb86a201e584b659a2b08ae43b56\transformed\material-1.11.0\AndroidManifest.xml:22:5-20
 MERGED from [com.google.android.material:material:1.11.0] C:\Users\GB4\.gradle\caches\8.9\transforms\cbf2fb86a201e584b659a2b08ae43b56\transformed\material-1.11.0\AndroidManifest.xml:22:5-20
 MERGED from [androidx.constraintlayout:constraintlayout:2.1.4] C:\Users\GB4\.gradle\caches\8.9\transforms\859e18b6b54fd037b8ab81b2aa65973b\transformed\constraintlayout-2.1.4\AndroidManifest.xml:9:5-20
@@ -193,113 +215,113 @@ MERGED from [com.google.android.odml:image:1.0.0-beta1] C:\Users\GB4\.gradle\cac
 	android:appComponentFactory
 		ADDED from [androidx.core:core:1.12.0] C:\Users\GB4\.gradle\caches\8.9\transforms\861c0d55431ef2c801dc8886646e621d\transformed\core-1.12.0\AndroidManifest.xml:28:18-86
 	android:supportsRtl
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:28:9-35
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:32:9-35
 	android:label
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:26:9-41
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:30:9-41
 	android:fullBackupContent
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:24:9-54
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:28:9-54
 	android:roundIcon
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:27:9-54
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:31:9-54
 	tools:targetApi
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:30:9-29
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:34:9-29
 	android:icon
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:25:9-43
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:29:9-43
 	android:allowBackup
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:22:9-35
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:26:9-35
 	android:theme
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:29:9-52
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:33:9-52
 	android:dataExtractionRules
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:23:9-65
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:27:9-65
 activity#com.example.floatingbutton.MainActivity
-ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:32:9-47:20
+ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:36:9-51:20
 	android:exported
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:34:13-36
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:38:13-36
 	android:theme
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:35:13-56
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:39:13-56
 	android:name
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:33:13-41
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:37:13-41
 intent-filter#action:name:android.intent.action.MAIN+category:name:android.intent.category.LAUNCHER
-ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:36:13-39:29
+ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:40:13-43:29
 action#android.intent.action.MAIN
-ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:37:17-69
+ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:41:17-69
 	android:name
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:37:25-66
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:41:25-66
 category#android.intent.category.LAUNCHER
-ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:38:17-77
+ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:42:17-77
 	android:name
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:38:27-74
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:42:27-74
 intent-filter#action:name:android.intent.action.SEND+category:name:android.intent.category.DEFAULT+data:mimeType:image/*
-ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:42:13-46:29
+ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:46:13-50:29
 action#android.intent.action.SEND
-ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:43:17-69
+ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:47:17-69
 	android:name
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:43:25-66
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:47:25-66
 category#android.intent.category.DEFAULT
-ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:44:17-76
+ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:48:17-76
 	android:name
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:44:27-73
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:48:27-73
 data
-ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:45:17-52
+ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:49:17-52
 	android:mimeType
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:45:23-49
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:49:23-49
 service#com.example.floatingbutton.FloatingButtonService
-ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:50:9-54:63
+ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:54:9-58:63
 	android:enabled
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:52:13-35
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:56:13-35
 	android:exported
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:53:13-37
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:57:13-37
 	android:foregroundServiceType
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:54:13-60
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:58:13-60
 	android:name
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:51:13-50
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:55:13-50
 activity#com.example.floatingbutton.ScreenCaptureActivity
-ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:57:9-61:49
+ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:61:9-65:49
 	android:excludeFromRecents
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:61:13-46
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:65:13-46
 	android:exported
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:59:13-37
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:63:13-37
 	android:theme
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:60:13-72
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:64:13-72
 	android:name
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:58:13-50
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:62:13-50
 activity#com.example.floatingbutton.UltimateImageViewerActivity
-ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:64:9-69:50
+ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:68:9-73:50
 	android:screenOrientation
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:68:13-49
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:72:13-49
 	android:hardwareAccelerated
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:69:13-47
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:73:13-47
 	android:exported
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:66:13-37
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:70:13-37
 	android:theme
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:67:13-71
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:71:13-71
 	android:name
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:65:13-56
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:69:13-56
 activity#com.example.floatingbutton.ModernImageViewerActivity
-ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:72:9-76:52
+ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:76:9-80:52
 	android:screenOrientation
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:76:13-49
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:80:13-49
 	android:exported
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:74:13-37
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:78:13-37
 	android:theme
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:75:13-71
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:79:13-71
 	android:name
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:73:13-54
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:77:13-54
 activity#com.example.floatingbutton.ImageViewerActivity
-ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:79:9-83:52
+ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:83:9-87:52
 	android:screenOrientation
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:83:13-49
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:87:13-49
 	android:exported
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:81:13-37
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:85:13-37
 	android:theme
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:82:13-71
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:86:13-71
 	android:name
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:80:13-48
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:84:13-48
 meta-data#android.support.FILE_PROVIDER_PATHS
-ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:91:13-93:63
+ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:95:13-97:63
 	android:resource
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:93:17-60
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:97:17-60
 	android:name
-		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:92:17-67
+		ADDED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml:96:17-67
 uses-sdk
 INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml
@@ -472,24 +494,6 @@ MERGED from [com.google.android.odml:image:1.0.0-beta1] C:\Users\GB4\.gradle\cac
 		INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml
 	android:minSdkVersion
 		INJECTED from C:\Users\GB4\Documents\Estudos\IA-Detection\app\src\main\AndroidManifest.xml
-uses-permission#android.permission.ACCESS_NETWORK_STATE
-ADDED from [com.google.mlkit:object-detection:17.0.1] C:\Users\GB4\.gradle\caches\8.9\transforms\4ec50ec7a11c46d7f5069411701a020e\transformed\object-detection-17.0.1\AndroidManifest.xml:7:5-79
-MERGED from [com.google.mlkit:vision-internal-vkp:18.2.2] C:\Users\GB4\.gradle\caches\8.9\transforms\5edfa33c0c147143e5761d15ccce5093\transformed\vision-internal-vkp-18.2.2\AndroidManifest.xml:7:5-79
-MERGED from [com.google.mlkit:vision-internal-vkp:18.2.2] C:\Users\GB4\.gradle\caches\8.9\transforms\5edfa33c0c147143e5761d15ccce5093\transformed\vision-internal-vkp-18.2.2\AndroidManifest.xml:7:5-79
-MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\GB4\.gradle\caches\8.9\transforms\ece13b40018045a6b0396718debacfcc\transformed\transport-backend-cct-2.3.3\AndroidManifest.xml:25:5-79
-MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\GB4\.gradle\caches\8.9\transforms\ece13b40018045a6b0396718debacfcc\transformed\transport-backend-cct-2.3.3\AndroidManifest.xml:25:5-79
-MERGED from [com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\GB4\.gradle\caches\8.9\transforms\4e84ba1e16c93d7dc1ae991a8fcec6ba\transformed\transport-runtime-2.2.6\AndroidManifest.xml:22:5-79
-MERGED from [com.google.android.datatransport:transport-runtime:2.2.6] C:\Users\GB4\.gradle\caches\8.9\transforms\4e84ba1e16c93d7dc1ae991a8fcec6ba\transformed\transport-runtime-2.2.6\AndroidManifest.xml:22:5-79
-	android:name
-		ADDED from [com.google.mlkit:object-detection:17.0.1] C:\Users\GB4\.gradle\caches\8.9\transforms\4ec50ec7a11c46d7f5069411701a020e\transformed\object-detection-17.0.1\AndroidManifest.xml:7:22-76
-uses-permission#android.permission.INTERNET
-ADDED from [com.google.mlkit:object-detection:17.0.1] C:\Users\GB4\.gradle\caches\8.9\transforms\4ec50ec7a11c46d7f5069411701a020e\transformed\object-detection-17.0.1\AndroidManifest.xml:8:5-67
-MERGED from [com.google.mlkit:vision-internal-vkp:18.2.2] C:\Users\GB4\.gradle\caches\8.9\transforms\5edfa33c0c147143e5761d15ccce5093\transformed\vision-internal-vkp-18.2.2\AndroidManifest.xml:8:5-67
-MERGED from [com.google.mlkit:vision-internal-vkp:18.2.2] C:\Users\GB4\.gradle\caches\8.9\transforms\5edfa33c0c147143e5761d15ccce5093\transformed\vision-internal-vkp-18.2.2\AndroidManifest.xml:8:5-67
-MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\GB4\.gradle\caches\8.9\transforms\ece13b40018045a6b0396718debacfcc\transformed\transport-backend-cct-2.3.3\AndroidManifest.xml:26:5-67
-MERGED from [com.google.android.datatransport:transport-backend-cct:2.3.3] C:\Users\GB4\.gradle\caches\8.9\transforms\ece13b40018045a6b0396718debacfcc\transformed\transport-backend-cct-2.3.3\AndroidManifest.xml:26:5-67
-	android:name
-		ADDED from [com.google.mlkit:object-detection:17.0.1] C:\Users\GB4\.gradle\caches\8.9\transforms\4ec50ec7a11c46d7f5069411701a020e\transformed\object-detection-17.0.1\AndroidManifest.xml:8:22-64
 service#com.google.mlkit.common.internal.MlKitComponentDiscoveryService
 ADDED from [com.google.mlkit:object-detection:17.0.1] C:\Users\GB4\.gradle\caches\8.9\transforms\4ec50ec7a11c46d7f5069411701a020e\transformed\object-detection-17.0.1\AndroidManifest.xml:11:9-17:19
 MERGED from [com.google.mlkit:image-labeling:17.0.7] C:\Users\GB4\.gradle\caches\8.9\transforms\5af37a58d031f28e8a3952d0a48172c9\transformed\image-labeling-17.0.7\AndroidManifest.xml:8:9-14:19

@@ -39,7 +39,7 @@ class FloatingActionMenu @JvmOverloads constructor(
 
     // 🎯 Ações disponíveis
     enum class Action {
-        OCR, SAVE_AREA, CROP, SEARCH, CLOSE
+        OCR, SAVE_AREA, CROP, SEARCH, AI_SCAN, CLOSE
     }
 
     // 🎯 Callback para ações
@@ -93,6 +93,15 @@ class FloatingActionMenu @JvmOverloads constructor(
             title = "Pesquisar",
             subtitle = "Pesquisar conteúdo",
             color = "#EA4335"
+        )
+
+        // 🤖 Scan de IA
+        addActionButton(
+            action = Action.AI_SCAN,
+            icon = "🤖",
+            title = "Detectar IA",
+            subtitle = "Verificar se é gerada por IA",
+            color = "#9C27B0"
         )
 
         // ❌ Fechar

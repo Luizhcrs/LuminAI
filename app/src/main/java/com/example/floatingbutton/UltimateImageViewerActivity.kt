@@ -15,7 +15,9 @@ import androidx.core.content.FileProvider
 import com.example.floatingbutton.ui.SmartRectangleDrawingView
 import com.example.floatingbutton.ui.LiveOCROverlay
 import com.example.floatingbutton.ui.FloatingActionMenu
+import com.example.floatingbutton.ui.AIResultsDialog
 import com.example.floatingbutton.ai.SmartSelectionEngine
+import com.example.floatingbutton.ai.AIDetectionService
 import kotlinx.coroutines.*
 import java.io.File
 import java.io.FileOutputStream
@@ -46,14 +48,16 @@ class UltimateImageViewerActivity : Activity() {
     private lateinit var smartDrawingView: SmartRectangleDrawingView
     private lateinit var ocrOverlay: LiveOCROverlay
     private lateinit var actionMenu: FloatingActionMenu
+    private lateinit var aiResultsDialog: AIResultsDialog
 
     // 🖼️ Dados da imagem
     private var imageUri: Uri? = null
     private var originalBitmap: Bitmap? = null
     private var selectedRegion: RectF? = null
 
-    // 🤖 IA Engine
+    // 🤖 IA Engines
     private lateinit var smartSelectionEngine: SmartSelectionEngine
+    private lateinit var aiDetectionService: AIDetectionService
     private var aiAnalysisJob: Job? = null
 
     // 🎯 Estados
@@ -125,11 +129,21 @@ class UltimateImageViewerActivity : Activity() {
             visibility = View.GONE
         }
 
+        // Dialog de resultados de IA
+        aiResultsDialog = AIResultsDialog(this).apply {
+            layoutParams = FrameLayout.LayoutParams(
+                FrameLayout.LayoutParams.MATCH_PARENT,
+                FrameLayout.LayoutParams.MATCH_PARENT
+            )
+            setBackgroundColor(Color.parseColor("#80000000")) // Fundo semi-transparente
+        }
+
         // Monta a hierarquia (ordem importa para eventos de toque)
         mainContainer.addView(imageView)
         mainContainer.addView(smartDrawingView)
         mainContainer.addView(ocrOverlay)
         mainContainer.addView(actionMenu)
+        mainContainer.addView(aiResultsDialog)
         
         setContentView(mainContainer)
         
@@ -245,6 +259,9 @@ class UltimateImageViewerActivity : Activity() {
                 FloatingActionMenu.Action.SEARCH -> {
                     searchSelectedContent()
                 }
+                FloatingActionMenu.Action.AI_SCAN -> {
+                    performAIScan()
+                }
                 FloatingActionMenu.Action.CLOSE -> {
                     resetToDrawingMode()
                 }
@@ -258,6 +275,13 @@ class UltimateImageViewerActivity : Activity() {
     private fun initializeAI() {
         try {
             smartSelectionEngine = SmartSelectionEngine(this)
+            aiDetectionService = AIDetectionService(this)
+            
+            // Configura callback do dialog de resultados
+            aiResultsDialog.setOnCloseListener {
+                Log.d(TAG, "🤖 Dialog de IA fechado")
+            }
+            
             Log.d(TAG, "🤖 IA inicializada com sucesso")
         } catch (e: Exception) {
             Log.e(TAG, "❌ Erro ao inicializar IA: ${e.message}", e)
@@ -377,6 +401,58 @@ class UltimateImageViewerActivity : Activity() {
     }
 
     /**
+     * 🤖 Executa scan de IA na área selecionada
+     */
+    private fun performAIScan() {
+        val region = selectedRegion
+        val bitmap = originalBitmap
+        
+        if (region == null || bitmap == null) {
+            showToast("❌ Nenhuma área selecionada")
+            return
+        }
+
+        Log.d(TAG, "🤖 Iniciando scan de IA para região: $region")
+        
+        // Esconde menu
+        actionMenu.hideMenu()
+        
+        aiAnalysisJob?.cancel()
+        aiAnalysisJob = CoroutineScope(Dispatchers.Main).launch {
+            try {
+                // Recorta área selecionada
+                val croppedBitmap = cropBitmapToRegion(bitmap, region)
+                
+                // Executa detecção de IA
+                val result = aiDetectionService.detectAIGenerated(croppedBitmap) { progress ->
+                    showToast(progress)
+                }
+                
+                result.fold(
+                    onSuccess = { aiResult ->
+                        Log.d(TAG, "✅ Scan de IA concluído: ${aiResult.confidencePercentage}%")
+                        
+                        // Mostra resultados no dialog elegante
+                        aiResultsDialog.showResults(aiResult)
+                    },
+                    onFailure = { error ->
+                        Log.e(TAG, "❌ Erro no scan de IA: ${error.message}", error)
+                        showToast("❌ Erro na detecção de IA: ${error.message}")
+                        
+                        // Volta para o menu
+                        actionMenu.showMenu()
+                    }
+                )
+                
+            } catch (e: Exception) {
+                Log.e(TAG, "❌ Erro no scan de IA: ${e.message}", e)
+                showToast("❌ Erro inesperado no scan de IA")
+                actionMenu.showMenu()
+            }
+        }
+    }
+
+    /**
      * 🔄 Volta para modo de desenho
      */
     private fun resetToDrawingMode() {
@@ -455,6 +531,7 @@ class UltimateImageViewerActivity : Activity() {
         finish()
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onBackPressed() {
         when (currentMode) {
             ViewMode.OCR_ACTIVE -> {
@@ -464,6 +541,7 @@ class UltimateImageViewerActivity : Activity() {
                 resetToDrawingMode()
             }
             ViewMode.DRAWING -> {
+                @Suppress("DEPRECATION")
                 super.onBackPressed()
             }
         }
